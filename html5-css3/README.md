@@ -110,6 +110,8 @@ context.lineTo(x, y);
 context.stroke();
 ```
 
+* 路径的概念
+
 ## CSS transition 应用
 
 背景色和宽度渐变
@@ -126,6 +128,7 @@ context.stroke();
 
 * [Differences from HTML4](http://www.w3.org/TR/html5-diff/)
 * [Web Storage](http://www.w3.org/TR/webstorage/)
+* [HTML Canvas 2D Context](http://www.w3.org/TR/2dcontext/)
 * [CSS Transitions](http://www.w3.org/TR/css3-transitions/)
 * [CSS Animations](http://www.w3.org/TR/css3-animations/)
 * [CSS Conditional Rules Module Level 3](http://www.w3.org/TR/css3-conditional/)
@@ -135,6 +138,10 @@ context.stroke();
 * [CSS Color Module Level 3](http://www.w3.org/TR/css3-color/)
 * [CSS Fonts Module Level 3](http://www.w3.org/TR/css3-fonts/)
 
-## 工具和扩展阅读
+## 工具和类库
 
-* [Fontello - icon fonts generator](http://fontello.com/)
+* [Fontello - icon fonts generator](http://fontello.com/) 字体图标生成工具
+* [D3 is a JavaScript library for manipulating documents based on data.](http://d3js.org/) 数据可视化类库
+* [Raphaël—JavaScript Library](http://raphaeljs.com/) 兼容浏览器的矢量图类库
+* [Infogr.am](http://infogr.am/) 在线统计图表工具
+* [ProcessOn](http://www.processon.com/) 在线流程图、设计图工具
