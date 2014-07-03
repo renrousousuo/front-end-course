@@ -124,6 +124,11 @@ context.stroke();
 }
 ```
 
+## 常见面试题
+
+* 请描述一下 cookies，sessionStorage 和 localStorage 的区别？
+* 如果设计中使用了非标准的字体，你该如何去实现？
+
 ## 参考文档
 
 * [Differences from HTML4](http://www.w3.org/TR/html5-diff/)

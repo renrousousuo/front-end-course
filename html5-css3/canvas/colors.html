@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>颜色</title>
+  <style>
+footer {
+  bottom: 0px;
+  position: absolute;
+}
+canvas {
+  background-color: black;
+}
+  </style>
+</head>
+<body>
+  <canvas width="500" height="500"></canvas>
+  <script>
+void function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+
+  var cx = canvas.width / 2;
+  var cy = canvas.height / 2;
+  var radius = canvas.width * 0.2; // 半径
+
+  var colors = ['#ff0000', '#00ff00', '#0000ff']; // #RRGGBB
+  for (var i = 0; i < colors.length; i++) {
+    var angle = i / colors.length * Math.PI * 2;
+    var tx = cx + radius * 0.7 * Math.cos(angle);
+    var ty = cy + radius * 0.7 * Math.sin(angle);
+    context.fillStyle = colors[i];
+    context.globalCompositeOperation = 'lighter';
+    context.beginPath();
+    context.arc(tx, ty, radius, 0, 2 * Math.PI); // 画圆弧
+    context.closePath();
+    context.fill();
+  }
+}();
+  </script>
+  <footer><a href="color-animation.html">next</a></footer>
+</body>
+</html>

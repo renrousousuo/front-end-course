@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>颜色</title>
+  <style>
+footer {
+  bottom: 0px;
+  position: absolute;
+}
+canvas {
+  background-color: black;
+}
+  </style>
+</head>
+<body>
+  <canvas width="200" height="200"></canvas>
+  <canvas width="200" height="200"></canvas>
+  <script>
+void function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+
+  var canvas2 = document.querySelector('canvas:nth-of-type(2)');
+  var context2 = canvas2.getContext('2d');
+
+  var cx = canvas.width / 2;
+  var cy = canvas.height / 2;
+  var radius = canvas.width * 0.2; // 半径
+  // var colors = ['#ff0000', '#00ff00', '#0000ff']; // #RRGGBB
+  var colors = []; // #RRGGBB
+
+  for (var i = 0; i < 12; i++) {
+    colors.push('#' +
+      parseInt(
+        0x1000000 * Math.random() + 0x1000000
+      ).toString(16).substring(1)
+    );
+  }
+
+  /**
+   * 渲染画布
+   * @param {CanvasRenderingContext2D} context 上下文
+   * @param {Float} progress 进度，0 ~ 1
+   */
+  function render(context, progress) {
+    context.save(); // 保存上一次的绘制风格
+    context.fillStyle = 'black';
+    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    // context.globalCompositeOperation = 'lighter';
+
+    for (var i = 0; i < colors.length; i++) {
+      var angle = progress * Math.PI * 2 + i / colors.length * Math.PI * 2;
+      var tr = radius + progress * radius * 0.5;
+      var tx = cx + tr * 0.7 * Math.cos(angle);
+      var ty = cy + tr * 0.7 * Math.sin(angle);
+      context.strokeStyle = colors[i];
+      context.lineWidth = 3;
+      context.beginPath();
+      context.arc(tx, ty, tr, 0, 2 * Math.PI); // 画圆弧
+      context.closePath();
+      context.stroke();
+    }
+    context.restore();
+  }
+
+  var start = new Date;
+  var lifetime = 10000;
+  setInterval(function() {
+    render(context, (new Date - start) % lifetime / lifetime);
+    
+    render(context2, Math.cos(
+      (new Date - start) % lifetime / lifetime * Math.PI * 2
+    ));
+  }, 100);
+}();
+  </script>
+  <footer><a href="colors.html">prev</a></footer>
+</body>
+</html>
