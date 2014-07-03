@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+.item {
+  transition: background-color 0.5s, width 0.5s; /* 过渡动画 */
+  background-color: #c00;
+  width: 200px;
+  padding: 4px 14px;
+  margin: 4px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.item:hover {
+  background-color: #0c0;
+}
+.selected {
+  background-color: #c0c;
+  width: 180px;
+}
+  </style>
+</head>
+<body>
+  <ul>
+    <li class="item">变形金刚</li>
+    <li class="item">钢铁侠</li>
+    <li class="item">哥斯拉</li>
+    <li class="item">加勒比海盗</li>
+    <li class="item">蓝精灵</li>
+    <li class="item">普罗米修斯</li>
+    <li class="item">海贼王</li>
+  </ul>
+  <script>
+void function() {
+  var movieKey = 'movie_select_list';
+  var selectList = localStorage.getItem(movieKey);
+  if (selectList) {
+    try {
+      selectList = JSON.parse(selectList);
+    } catch(ex) {
+      selectList = null;
+    }
+  }
+  if (selectList === null) {
+    selectList = {};
+  }
+  var items = Array.prototype.slice.call(document.querySelectorAll('.item'));
+  items.forEach(function(item) {
+    if (selectList[item.innerHTML]) {
+      item.classList.add('selected');
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    var target = e.target;
+    if (!target) {
+      return;
+    }
+    if (!target.classList.contains('item')) {
+      return;
+    }
+    target.classList.toggle('selected');
+
+    var selectList = {};
+    items.forEach(function(item) {
+      if (item.classList.contains('selected')) {
+        selectList[item.innerHTML] = true;
+      }
+    });
+    localStorage.setItem(movieKey, JSON.stringify(selectList));
+  });
+}();
+  </script>
+</body>
+</html>

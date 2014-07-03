@@ -149,9 +149,12 @@ $.ajax({
 
 ## Demo 运行说明
 
-```
-npm install
-```
+* 安装 node 环境
+* 设置 npm 镜像，`$npm config set registry http://registry.cnpmjs.org`
+* 安装 bower 工具 `$npm -g install bower`
+* 打开控制台，进入 demo 目录 `$cd demo1`
+* 安装 node 包和依赖 `$npm install`
+* 安装 bower 组件和依赖 `$bower install`
 
 ## 参考资料
 
