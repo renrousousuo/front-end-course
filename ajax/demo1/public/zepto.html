@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="components/zeptojs/src/zepto.js"></script>
+  <script src="components/zeptojs/src/event.js"></script>
+  <script src="components/zeptojs/src/ajax.js"></script>
+  <style>
+footer {
+  bottom: 0px;
+  position: absolute;
+}
+  </style>
+</head>
+<body>
+  <ul>
+    <li>city: <span id="city"></span></li>
+    <li>temperature: <span id="temperature"></span></li>
+  <ul>
+  <div>
+    <input id="ajax" type="button" value="$.ajax" />
+    <input id="ajax-wait" type="button" value="$.ajax.wait" />
+  </div>
+  <script>
+void function() {
+  var url = '/weather';
+
+  function processData(data) {
+    document.querySelector('#city').innerHTML = data.city;
+    document.querySelector('#temperature').innerHTML = data.temperature;
+  }
+
+  $('#ajax').click(function() {
+    $.ajax({
+      url: url,
+      success: processData
+    });
+  });
+  $('#ajax-wait').click(function() {
+    $.ajax({
+      url: '/wait',
+      timeout: 3000, // 超时 3 秒
+      success: processData,
+      error: function(message) {
+        document.querySelector('#city').innerHTML = 'error';
+        document.querySelector('#temperature').innerHTML = '';
+      }
+    });
+  });
+}();
+  </script>
+  <footer><a href="index.html">prev</a></footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "fec-ajax-demo1",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "zeptojs": "~1.1.2",
+    "ejs": "~1.0.0"
+  }
+}

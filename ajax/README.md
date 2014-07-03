@@ -114,11 +114,25 @@ void function() {
 }();
 ```
 
-### jQuery AJAX
+### jQuery / Zepto AJAX
+
+* 类库做了什么事？异常处理、浏览器兼容、JSONP 兼容
+
+```javascript
+$.ajax({
+  url: '/wait',
+  timeout: 3000, // 超时 3 秒
+  success: processData,
+  error: function(message) {
+    document.querySelector('#city').innerHTML = 'error';
+    document.querySelector('#temperature').innerHTML = '';
+  }
+});
+```
 
 ## Demo
 
-* 智能提示
+* 获取天气信息（原始方式、Zepto）
 
 ## 追求卓越
 
@@ -150,8 +164,11 @@ npm install
 * [Introducing JSON](http://json.org/)
 * [express: web application framework for node](http://expressjs.com/)
 * [Cross-Origin Resource Sharing](http://www.w3.org/TR/cors/)
+* [Specifics of npm's package.json handling](https://www.npmjs.org/doc/files/package.json.html)
 
 ## 扩展阅读
 
 * [理解 RESTful 架构](http://www.ruanyifeng.com/blog/2011/09/restful.html)  2011年9月12日 阮一峰
+* [bower 解决 JS 的依赖管理](http://blog.fens.me/nodejs-bower-intro/) 2013年8月18日 张丹
+* [NodeJS 学习路线图](http://blog.fens.me/nodejs-roadmap/) 2014年6月23日 张丹
 * [Google JavaScript Style Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)

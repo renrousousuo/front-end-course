@@ -9,6 +9,14 @@ app.get('/weather', function(req, res){
     temperature: '31 ~ 23℃'
   });
 });
+app.get('/wait', function(req, res){
+  setTimeout(function() {
+    res.json({
+      city: 'beijing',
+      temperature: '31 ~ 23℃'
+    });
+  }, 5000);
+});
 
 var server = http.createServer(app);
 server.listen(2014);
