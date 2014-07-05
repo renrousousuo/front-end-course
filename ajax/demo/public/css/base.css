@@ -14,6 +14,7 @@ header {
 }
 
 header a {
+  text-decoration: none;
   padding: 4px;
   border-radius: 3px;
   background-color: #eee;
@@ -21,6 +22,11 @@ header a {
 
 header a:hover {
   border-radius: 3px;
+  background-color: white;
+}
+
+header a.active {
+  color: green;
   background-color: white;
 }
 
