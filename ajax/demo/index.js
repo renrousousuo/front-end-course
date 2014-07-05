@@ -31,5 +31,20 @@ app.get('/page/:pageSize/:pageIndex', function(req, res) {
   });
 });
 
+app.get('/search/:pageSize/:pageIndex', function(req, res) {
+  var key = req.query.q;
+  var pageIndex = parseInt(req.params.pageIndex);
+  var pageSize = parseInt(req.params.pageSize);
+  var start = pageIndex * pageSize; // 起始点
+  var searchArray = newsArray.filter(function(item) {
+    return item.title.indexOf(key) >= 0;
+  });
+
+  res.json({
+    count: searchArray.length,
+    news: searchArray.slice(start, start + pageSize)
+  });
+});
+
 var server = http.createServer(app);
 server.listen(2014);

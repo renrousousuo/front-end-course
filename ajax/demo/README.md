@@ -31,7 +31,7 @@ GET `/page/:pageSize/:pageIndex`
 
 上行
 
-GET `/search/:key/:pageSize/:pageIndex`
+GET `/search/:pageSize/:pageIndex?q=:key`
 
 * key 检索关键词
 * pageSize 每页大小
@@ -50,6 +50,7 @@ GET `/search/:key/:pageSize/:pageIndex`
       "visitor": 1905 // 浏览次数
     }
   ]
+}
 ```
 
 ### 延迟获取
