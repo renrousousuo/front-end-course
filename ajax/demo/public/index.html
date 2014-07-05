@@ -1,25 +1,28 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <style>
-footer {
-  bottom: 0px;
-  position: absolute;
-}
-  </style>
+  <meta charset="utf-8" />
+  <title>原生 ajax</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
 </head>
 <body>
+  <header>
+    <a href="index.html">原生 ajax</a>
+    <a href="timeout.html">类库做了哪些事？</a>
+    <a href="format.html">格式化数据</a>
+    <a href="ejs.html">JS 模板</a>
+    <a href="pages.html">分页控件</a>
+  </header>
   <ul>
     <li>city: <span id="city"></span></li>
     <li>temperature: <span id="temperature"></span></li>
-  <ul>
+  </ul>
   <div>
-    <input type="button" value="ajax" />
+    <input type="button" value="原生 ajax" />
   </div>
   <script>
 void function() {
-  var url = '/weather';
+  var url = '/weather.json';
 
   function processData(data) {
     console.log(data);
@@ -51,6 +54,5 @@ void function() {
   });
 }();
   </script>
-  <footer><a href="zepto.html">next</a></footer>
 </body>
 </html>

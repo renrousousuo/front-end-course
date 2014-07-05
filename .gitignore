@@ -10,3 +10,4 @@ benchmarks/*.png
 node_modules
 coverage
 components
+tools/news.json

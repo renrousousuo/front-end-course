@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>类库做了哪些事？</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/zeptojs/src/zepto.js"></script>
+  <script src="components/zeptojs/src/event.js"></script>
+  <script src="components/zeptojs/src/ajax.js"></script>
+</head>
+<body>
+  <header>
+    <a href="index.html">原生 ajax</a>
+    <a href="timeout.html">类库做了哪些事？</a>
+    <a href="format.html">格式化数据</a>
+    <a href="ejs.html">JS 模板</a>
+    <a href="pages.html">分页控件</a>
+  </header>
+  <ul>
+    <li>id: <span id="id"></span></li>
+    <li>title: <span id="title"></span></li>
+  </ul>
+  <div>
+    <input id="ajax" type="button" value="$.ajax" />
+    <input id="ajax-timeout" type="button" value="$.ajax.timeout" />
+  </div>
+  <script>
+void function() {
+  var url = '/wait/1/5000'; // wait/:newsIndex/:delay
+
+  function processData(data) {
+    document.querySelector('#id').innerHTML = data.id;
+    document.querySelector('#title').innerHTML = data.title;
+  }
+
+  $('#ajax').click(function() {
+    $('#ajax').attr('disabled', true);
+    var start = new Date;
+    var timer = setInterval(function() {
+      var tick = new Date - start;
+      $('#ajax').val('$.ajax(' + parseInt(tick / 1000) + ')');
+      if (tick > 5000) {
+        $('#ajax').removeAttr('disabled');
+        $('#ajax').val('$.ajax');
+        clearTimeout(timer);
+      }
+    });
+    $.ajax({
+      url: url,
+      success: processData
+    });
+  });
+  $('#ajax-timeout').click(function() {
+    $('#ajax-timeout').attr('disabled', true);
+    var start = new Date;
+    var timer = setInterval(function() {
+      var tick = new Date - start;
+      $('#ajax-timeout').val('$.ajax-timeout(' + parseInt(tick / 1000) + ')');
+      if (tick > 5000) {
+        $('#ajax-timeout').removeAttr('disabled');
+        $('#ajax-timeout').val('$.ajax-timeout');
+        clearTimeout(timer);
+      }
+    });
+    $.ajax({
+      url: url,
+      timeout: 3000, // 超时 3 秒
+      success: processData,
+      error: function(message) {
+        document.querySelector('#id').innerHTML = 'error';
+        document.querySelector('#title').innerHTML = '';
+      }
+    });
+  });
+}();
+  </script>
+</body>
+</html>

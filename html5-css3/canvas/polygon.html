@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>polygon</title>
+  <style>
+footer {
+  bottom: 0px;
+  position: absolute;
+}
+canvas {
+  border: 1px solid gray;
+}
+  </style>
+</head>
+<body>
+  <canvas width="500" height="500"></canvas>
+  <script>
+void function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+  // @from http://www.storminthecastle.com/2013/07/24/how-you-can-draw-regular-polygons-with-the-html5-canvas-api/
+
+  /**
+   * 正多边形
+   */
+  function polygon(ctx, x, y, radius, sides, startAngle, anticlockwise) {
+    if (sides < 3) { 
+      return;
+    }
+    var a = (Math.PI * 2) / sides;
+    a = anticlockwise ? -a : a;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(startAngle);
+    ctx.moveTo(radius, 0);
+    for (var i = 1; i < sides; i++) {
+      ctx.lineTo(radius * Math.cos(a * i), radius * Math.sin(a * i));
+    }
+    ctx.closePath();
+    ctx.restore();
+  }
+
+  context.beginPath();
+  polygon(context, 125, 125, 100, 5, -Math.PI / 2);
+  context.fillStyle="rgba(227, 11, 93, 0.75)";
+  context.fill();
+  context.stroke();
+
+  // Draw a circle to encompass this polygon
+  context.beginPath();
+  context.arc(125, 125, 100, 0, Math.PI * 2);
+  context.stroke();
+
+  context.beginPath();
+  polygon(context,350, 125, 100, 6, -Math.PI / 2);
+  context.fillStyle = "rgba(51, 128, 255, 0.75)";
+  context.fill();
+  context.stroke();
+
+  context.beginPath();
+  polygon(context, 125, 350, 100, 7, -Math.PI / 2);
+  context.fillStyle = "rgba(11, 227, 93, 0.75)";
+  context.fill();
+  context.stroke();
+
+  context.beginPath();
+  polygon(context, 350, 350, 100, 8, 0, false);
+  polygon(context, 350, 350, 60, 8, 0, false);
+  context.fillStyle = "rgba(227, 11, 93, 0.75)";
+  context.shadowColor = 'rgba(0, 0, 0, 0.75)';
+  context.shadowOffsetX = 8;
+  context.shadowOffsetY = 8;
+  context.shadowBlur = 10;
+  context.fill();
+}();
+  </script>
+  <footer><a href="colors-animation.html">next</a></footer>
+</body>
+</html>

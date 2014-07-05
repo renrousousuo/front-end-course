@@ -1,5 +1,8 @@
 ## 哪里有 WebSocket？Where
 
+* [网易游戏框架 Pomelo](http://nodejs.netease.com/)
+* [百度应用框架 Clouda](http://cloudajs.org/)
+
 ## 什么是 WebSocket？What
 
 WebSocket protocol 是HTML5 一种新的协议。它是实现了浏览器与服务器全双工通信(full-duplex)。
@@ -58,3 +61,6 @@ WebSocket protocol 是HTML5 一种新的协议。它是实现了浏览器与服�
 
 * [知乎：WebSocket 是什么原理？为什么可以实现持久连接](http://www.zhihu.com/question/20215561)
 * [Server-Sent Events with Node.js (Express)](http://tomkersten.com/articles/server-sent-events-with-node/)
+* [关于 WebSocket](http://www.cnblogs.com/yjf512/archive/2013/03/11/2953483.html) 2013年03月11 叶剑峰
+* [What are WebSockets?](http://pusher.com/websockets)
+* [Introducing WebSockets: Bringing Sockets to the Web](http://www.html5rocks.com/en/tutorials/websockets/basics/)[译文](http://www.html5rocks.com/zh/tutorials/websockets/basics/)

@@ -109,8 +109,7 @@ void function() {
   var client = new XMLHttpRequest();
   client.onreadystatechange = handler;
   client.open('GET', 'config.json');
-  client.send();
-
+  client.send(); // 发送请求
 }();
 ```
 
@@ -130,7 +129,7 @@ $.ajax({
 });
 ```
 
-## Demo
+## 实战
 
 * 获取天气信息（原始方式、Zepto）
 * 获取最近新闻（数据抓取，JavaScript 模板）
@@ -144,18 +143,12 @@ $.ajax({
 ## 常见相关面试题
 
 * 请尽可能详尽的解释 AJAX 的工作原理。
+  * AJAX 流程
+  * 原生 AJAX 实现细节
 * 请解释 JSONP 的工作原理，以及它为什么不是真正的 AJAX。
 * 你使用过 JavaScript 模板系统吗？
+  * 模板系统的好处？
 * GET 和 POST 的区别？
-
-## Demo 运行说明
-
-* 安装 node 环境
-* 设置 npm 镜像，`$npm config set registry http://registry.cnpmjs.org`
-* 安装 bower 工具 `$npm -g install bower`
-* 打开控制台，进入 demo 目录 `$cd demo1`
-* 安装 node 包和依赖 `$npm install`
-* 安装 bower 组件和依赖 `$bower install`
 
 ## 参考资料
 

@@ -142,6 +142,7 @@ context.stroke();
 * [CSS Backgrounds and Borders Module Level 3](http://www.w3.org/TR/css3-background/)
 * [CSS Color Module Level 3](http://www.w3.org/TR/css3-color/)
 * [CSS Fonts Module Level 3](http://www.w3.org/TR/css3-fonts/)
+* [HTML5 Slide](http://slides.html5rocks.com/)
 
 ## 工具和类库
 
@@ -150,3 +151,7 @@ context.stroke();
 * [Raphaël—JavaScript Library](http://raphaeljs.com/) 兼容浏览器的矢量图类库
 * [Infogr.am](http://infogr.am/) 在线统计图表工具
 * [ProcessOn](http://www.processon.com/) 在线流程图、设计图工具
+
+## 扩展阅读
+
+* [3D and CSS](http://www.html5rocks.com/en/tutorials/3d/css/)

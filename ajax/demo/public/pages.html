@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>分页控件</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/zeptojs/src/zepto.js"></script>
+  <script src="components/zeptojs/src/event.js"></script>
+  <script src="components/zeptojs/src/ajax.js"></script>
+  <script src="components/ejs/ejs.js"></script>
+  <style>
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">原生 ajax</a>
+    <a href="timeout.html">类库做了哪些事？</a>
+    <a href="format.html">格式化数据</a>
+    <a href="ejs.html">JS 模板</a>
+    <a href="pages.html">分页控件</a>
+  </header>
+  <div class="paginator"></div>
+  <ul id="list">
+    <script type="text/ejs">
+    <%
+    news.forEach(function(item) {
+      item.group = '4205';
+      item.date = String(item.id).substr(0, 4) + '-' +
+        String(item.id).substr(4, 2) + '-' +
+        String(item.id).substr(6, 2);
+      var style = '';
+      if (item.visitor > 10000) {
+        style = 'color: blue; font-weight: bold';
+      } else if (item.visitor > 5000) {
+        style = 'color: blue;';
+      } else if (item.visitor > 5000) {
+        style = 'color: green; font-weight: bold';
+      } else if (item.visitor > 500) {
+        style = 'color: green;';
+      }
+    %>
+    <li>
+      <a href="http://news.tsinghua.edu.cn/publish/news/<%= item.group %>/<%= item.year %>/<%= item.id %>/<%= item.id %>_.html" target="_blank">
+        <font color=""><%= item.title %></font>
+      </a>&nbsp;&nbsp;
+      [
+      <span class="txt_date"><%= item.date %></span>
+      <span class="txt_sum">浏览:
+        <font style="<%= style %>"><span><%= item.visitor %></span></font>
+      </span>
+      ]
+    </li>
+    <%
+    });
+    %>
+    </script>
+  </ul>
+  <div class="paginator">
+    <script type="text/ejs">
+    <span style="font-size:12px">
+      共<b><%= dataCount %></b>条&nbsp;&nbsp;
+      分<b><%= pageCount %></b>页&nbsp;&nbsp;
+      当前&nbsp;第<b><%= pageIndex + 1 %></b>页&nbsp;&nbsp;
+      <% if (pageIndex == 0) { %>
+        <font color="#C0C0C0">首页</font>
+        <font color="#C0C0C0">上一页</font>
+      <% } else { %>
+        <a href="#" class="goto-first">
+          <font color="#000000">首页</font>
+        </a>
+        <a href="#" class="goto-prev">
+          <font color="#000000">上一页</font>
+        </a>
+      <% } %>
+
+      <% if (pageIndex >= pageCount - 1) { %>
+        <font color="#C0C0C0">下一页</font>
+        <font color="#C0C0C0">末页</font>
+      <% } else { %>
+        <a href="#" class="goto-next">
+          <font color="#000000">下一页</font>
+        </a>
+        <a href="#" class="goto-last">
+          <font color="#000000">末页</font>
+        </a>
+      <% } %>
+    </span>
+    <span>跳转到：
+      <select name="topage" size="1" class="goto-index">
+      <% for (var i = 0; i < pageCount; i++) {%>
+        <option value="<%= i %>" <%= i === pageIndex ? 'selected' : '' %>>
+          <%= i + 1 %>
+        </option>
+      <% } %>
+      </select>
+    </span>
+    </script>
+  </div>
+
+  <script>
+void function() {
+
+  var pageSize = 20;
+  var pageIndex = 0;
+
+  var templateList = $('#list script[type="text/ejs"]').html();
+  var templatePaginator = $('.paginator script[type="text/ejs"]').html();
+
+  function gotoPage(value) {
+    pageIndex = parseInt(value);
+    $.ajax({
+      url: ['page', pageSize, pageIndex].join('/'),
+      success: processData
+    });
+  }
+
+  function processData(data) {
+    $('#list').html(
+      ejs.render(templateList, data)
+    );
+
+    pageCount = parseInt(data.count / pageSize) + 1;
+    $('.paginator').html(
+      ejs.render(templatePaginator, {
+        dataCount: data.count,
+        pageCount: pageCount,
+        pageSize: pageSize,
+        pageIndex: pageIndex
+      })
+    );
+  }
+
+  gotoPage(pageIndex);
+
+  // 动态绑定事件
+  $('.goto-first').live('click', function() {
+    gotoPage(0);
+  });
+  $('.goto-prev').live('click', function() {
+    gotoPage(pageIndex - 1);
+  });
+  $('.goto-next').live('click', function() {
+    gotoPage(pageIndex + 1);
+  });
+  $('.goto-last').live('click', function() {
+    gotoPage(pageCount - 1);
+  });
+  $('.goto-index').live('change', function() {
+    gotoPage(this.value);
+  });
+}();
+  </script>
+</body>
+</html>

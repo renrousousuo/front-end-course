@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+/* http://www.w3.org/TR/css3-animations/ */
+.charector {
+  float: left;
+  width: 180px;
+  height: 300px;
+  background: url(img/charector.png) 0 0 no-repeat;
+
+  -webkit-animation-name: charector-run; /* 动画名称 */
+  -webkit-animation-iteration-count: infinite; /* 动画无限播放 */
+  -webkit-animation-timing-function: step-start; /* 马上跳到动画每一结束桢的状态 */
+  -webkit-animation-duration: 0.5s; /* 动画运行的时间 */
+}
+
+.fast {
+  top: 200px;
+  -webkit-animation-duration: 0.1s; /* 动画运行的时间 */
+}
+
+.slow {
+  top: 400px;
+  -webkit-animation-duration: 2.0s; /* 动画运行的时间 */
+}
+
+@-webkit-keyframes charector-run {
+  0% {background-position: 0 0;}
+  14.3% {background-position: -180px 0;}
+  28.6% {background-position: -360px 0;}
+  42.9% {background-position: -540px 0;}
+  57.2% {background-position: -720px 0;}
+  71.5% {background-position: -900px 0;}
+  85.8% {background-position: -1080px 0;}
+  100% {background-position: 0 0;}
+}
+  </style>
+</head>
+<body>
+  <div class="charector"></div>
+  <div class="charector fast"></div>
+  <div class="charector slow"></div>
+</body>
+</html>

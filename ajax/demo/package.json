@@ -1,7 +1,7 @@
 {
-  "name": "fec-ajax-demo1",
+  "name": "fec-ajax-demo",
   "version": "0.0.0",
-  "description": "front end course ajax demo1",
+  "description": "front end course ajax demo",
   "author": "zswang",
   "main": "index.js",
   "dependencies": {

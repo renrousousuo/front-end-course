@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>格式化数据</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/zeptojs/src/zepto.js"></script>
+  <script src="components/zeptojs/src/event.js"></script>
+  <script src="components/zeptojs/src/ajax.js"></script>
+</head>
+<body>
+  <header>
+    <a href="index.html">原生 ajax</a>
+    <a href="timeout.html">类库做了哪些事？</a>
+    <a href="format.html">格式化数据</a>
+    <a href="ejs.html">JS 模板</a>
+    <a href="pages.html">分页控件</a>
+  </header>
+  <ul id="news"></ul>
+  <script>
+void function() {
+
+  function format(template, json) {
+    return template.replace(/#\{([^\}]*)\}/g, function(all, key) {
+      return json[key];
+    });
+  }
+
+  function processData(data) {
+    var lines = [];
+    data.news.forEach(function(item) {
+      item.group = '4205';
+      item.date = String(item.id).substr(0, 4) + '-' +
+        String(item.id).substr(4, 2) + '-' +
+        String(item.id).substr(6, 2);
+
+      lines.push(format('\
+<li>\n\
+  <a href="http://news.tsinghua.edu.cn/publish/news/#{group}/#{year}/#{id}/#{id}_.html" target="_blank">\n\
+    <font color="">#{title}</font>\n\
+  </a>&nbsp;&nbsp;\n\
+  [\n\
+  <span class="txt_date">#{date}</span>\n\
+  <span class="txt_sum">浏览:<font><span>#{visitor}</span></font></span>\n\
+  ]\n\
+</li>\n\
+',
+      item));
+    });
+    // document.querySelector('#news').innerHTML = lines.join('\n');
+    $('#news').html(lines.join('\n'));
+  }
+
+  $.ajax({
+    url: '/page/20/0',
+    success: processData
+  });
+}();
+  </script>
+</body>
+</html>
