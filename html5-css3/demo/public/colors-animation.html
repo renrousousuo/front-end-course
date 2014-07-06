@@ -3,17 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <title>彩色圈动画</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="js/base.js"></script>
   <style>
-footer {
-  bottom: 0px;
-  position: absolute;
-}
 canvas {
   background-color: black;
 }
   </style>
 </head>
 <body>
+  <header>
+    <a href="/">简单绘制</a>
+    <a href="/colors.html">三颜色</a>
+    <a href="/colors-animation.html">彩色圈动画</a>
+    <a href="/polygon.html">正多边形</a>
+    <a href="/thu-logo.html">旋转 logo</a>
+    <a href="/cat.html">奔跑的猫</a>
+    <a href="/transition.html">渐变动画</a>
+    <a href="/slider.html">轮播图</a>
+  </header>
   <canvas width="200" height="200"></canvas>
   <canvas width="200" height="200"></canvas>
   <script>
@@ -47,7 +55,7 @@ void function() {
     context.save(); // 保存上一次的绘制风格
     context.fillStyle = 'black';
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-    // context.globalCompositeOperation = 'lighter';
+    context.globalCompositeOperation = 'lighter';
 
     for (var i = 0; i < colors.length; i++) {
       var angle = progress * Math.PI * 2 + i / colors.length * Math.PI * 2;
@@ -75,9 +83,5 @@ void function() {
   }, 100);
 }();
   </script>
-  <footer>
-    <a href="colors.html">prev</a>
-    <a href="thu.log.html">next</a>
-  </footer>
 </body>
 </html>

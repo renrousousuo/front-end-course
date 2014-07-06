@@ -1,0 +1,10 @@
+{
+  "name": "fec-html5-css3-demo",
+  "version": "0.0.0",
+  "description": "front end course html5 css3 demo",
+  "author": "zswang",
+  "main": "index.js",
+  "dependencies": {
+    "express": "3.4.8"
+  }
+}

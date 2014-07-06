@@ -155,3 +155,4 @@ context.stroke();
 ## 扩展阅读
 
 * [3D and CSS](http://www.html5rocks.com/en/tutorials/3d/css/)
+* [CSS3 实现跑步](http://www.cnblogs.com/PeunZhang/p/3685980.html) 2014年04月26日 白树
