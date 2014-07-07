@@ -5,6 +5,7 @@
   <title>彩色圈动画</title>
   <link rel="stylesheet" type="text/css" href="css/base.css" />
   <script src="js/base.js"></script>
+  <script src="components/gif.js/dist/gif.js"></script>
   <style>
 canvas {
   background-color: black;
@@ -24,6 +25,10 @@ canvas {
   </header>
   <canvas width="200" height="200"></canvas>
   <canvas width="200" height="200"></canvas>
+  <img width="200" height="200" />
+  <div>
+    <input type="button" value="build" /><a download="colors.gif" id="download">download...</a>
+  </div>
   <script>
 void function() {
   var canvas = document.querySelector('canvas');
@@ -81,6 +86,29 @@ void function() {
       (new Date - start) % lifetime / lifetime * Math.PI * 2
     ));
   }, 100);
+
+  document.querySelector('input[type=button]').addEventListener('click', function() {
+    var gif = new GIF({
+      repeat: 0,
+      workers: 3,
+      quality: 10, // 品质
+      workerScript: 'components/gif.js/dist/gif.worker.js'
+    });
+
+    for (var i = 0; i < lifetime; i += 400) {
+      render(context, Math.cos(
+        i / lifetime * Math.PI * 2
+      ));
+      gif.addFrame(context.canvas, { delay: 100, copy: true });
+    }
+    gif.on('finished', function(blob) {
+      var url = URL.createObjectURL(blob);
+      document.querySelector('img').src = url;
+      document.querySelector('#download').href = url;
+      self.disabled = false;
+    });
+    gif.render();  
+  });
 }();
   </script>
 </body>

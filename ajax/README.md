@@ -81,7 +81,11 @@ document.querySelector('head').appendChild(script);
 * JS 模板（JavaScript templates）
   * 优势：不用拼接字符串，可维护性更强
 
-### 步骤
+### 开发步骤
+
+![开发流程](http://divio.qiniudn.com/FvpCV8fN_Xs7UFC-vA6sI_dU0ARz)
+
+前端工作
 
 * 制订协议，上行，下行。
 * 调试接口，请求和应答是否符合预期。

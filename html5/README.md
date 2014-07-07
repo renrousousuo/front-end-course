@@ -1,4 +1,4 @@
-HTML5 / CSS3 技术分享
+HTML5 技术分享
 ---
 
 ## Web 技术的发展
@@ -15,14 +15,8 @@ HTML5 / CSS3 技术分享
 
 ## 什么是 HTML5
 
-* HTML5 ≈ HTML + CSS +JS
-* 离线和存储 Offline / Storage
-* 实时和通信 Realtime / Communication
-* 文件和硬件访问 File / Hardware Access
-* 语义化 Semantics & Markup
-* 图形和多媒体 Graphics / Multimedia
-* CSS3
-* 核心 Nuts & Bolts
+* HTML5 ≈ HTML + CSS +JS。
+* 万维网的核心语言、标准通用标记语言下的一个应用超文本标记语言（HTML）第五个大版本。
 
 ## HTML5 的普及情况
 
@@ -146,6 +140,33 @@ context.stroke();
   transition: background-color 0.5s, width 0.5s; /* 过渡动画 */
   background-color: #c00;
   width: 200px;
+}
+```
+
+## 实战
+
+### 轮播图
+
+实现原理
+
+![轮播图原理](http://divio.qiniudn.com/Ft6O6C30ikbjR7seoQ7q6rn5XZLw)
+
+```javascript
+function setCurrent(value) {
+  current = value;
+  for (var i = 0; i < sliderItems.length; i++) {
+    var item = sliderItems[i];
+    if (i < current) {
+      item.style['-webkit-transform'] =
+        'translateX(-' + itemWidth * (i + 1) + 'px)';
+    } else if (i === current) {
+      item.style['-webkit-transform'] =
+        'translateX(-' + itemWidth * i + 'px)';
+    } else {
+      item.style['-webkit-transform'] =
+        'translateX(-' + itemWidth * (i - 1) + 'px)';
+    }
+  }
 }
 ```
 

@@ -46,5 +46,7 @@ app.get('/search/:pageSize/:pageIndex', function(req, res) {
   });
 });
 
+var port = 2014;
 var server = http.createServer(app);
-server.listen(2014);
+server.listen(port);
+console.log("listen port: %d", port);

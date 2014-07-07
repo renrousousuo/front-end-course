@@ -5,6 +5,7 @@
   <title>logo</title>
   <link rel="stylesheet" type="text/css" href="css/base.css" />
   <script src="js/base.js"></script>
+  <script src="components/gif.js/dist/gif.js"></script>
   <style>
 canvas {
   border: 1px solid gray;
@@ -23,6 +24,10 @@ canvas {
     <a href="/slider.html">轮播图</a>
   </header>
   <canvas width="500" height="500"></canvas>
+  <img width="150" height="150" />
+  <div>
+    <input type="button" value="build" /><a download="thu-logo.gif" id="download">download...</a>
+  </div>
   <script>
 void function() {
   var canvas = document.querySelector('canvas');
@@ -31,12 +36,12 @@ void function() {
   // 中心坐标
   var cx = 230;
   var cy = 230;
+  var lifetime = 30000; // 周期
 
   var img = new Image();
   img.addEventListener('load', function() {
     //@see http://www.w3.org/TR/2dcontext/#dom-context-2d-drawimage
     var start = new Date;
-    var lifetime = 30000; // 周期
     setInterval(function() {
       render(context, Math.cos(
         (new Date - start) % lifetime / lifetime * Math.PI * 2
@@ -53,7 +58,7 @@ void function() {
   function render(context, progress) {
     context.save();
     context.fillStyle = 'white';
-    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    context.fillRect(0, 0, canvas.width, canvas.height);
     context.translate(cx, cy); // 修改坐标系原点
 
     // ☆
@@ -101,6 +106,40 @@ void function() {
 
     context.restore();
   }
+
+  var canvasTemp = document.createElement('canvas');
+  var imgView = document.querySelector('img');
+  canvasTemp.width = imgView.width;
+  canvasTemp.height = imgView.height;
+  var contextTemp = canvasTemp.getContext('2d');
+
+  contextTemp.scale(
+    canvasTemp.width / canvas.width,
+    canvasTemp.height / canvas.height
+  );
+
+  document.querySelector('input[type=button]').addEventListener('click', function() {
+    var gif = new GIF({
+      repeat: 0,
+      workers: 3,
+      quality: 10, // 品质
+      workerScript: 'components/gif.js/dist/gif.worker.js'
+    });
+
+    for (var i = 0; i < lifetime; i += 500) {
+      render(contextTemp, Math.cos(
+        i / lifetime * Math.PI * 2
+      ));
+      gif.addFrame(contextTemp.canvas, { delay: 100, copy: true });
+    }
+    gif.on('finished', function(blob) {
+      var url = URL.createObjectURL(blob);
+      document.querySelector('img').src = url;
+      document.querySelector('#download').href = url;
+      self.disabled = false;
+    });
+    gif.render();  
+  });
 }();
   </script>
 </body>

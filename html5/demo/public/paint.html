@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <title>简单绘制</title>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  border: 1px solid black;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">简单绘制</a>
+    <a href="/colors.html">三颜色</a>
+    <a href="/colors-animation.html">彩色圈动画</a>
+    <a href="/polygon.html">正多边形</a>
+    <a href="/thu-logo.html">旋转 logo</a>
+    <a href="/cat.html">奔跑的猫</a>
+    <a href="/transition.html">渐变动画</a>
+    <a href="/slider.html">轮播图</a>
+  </header>
+  <canvas width="500" height="500"></canvas>
+  <script>
+void function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+  context.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+  for (var i = 0; i < 100; i++) {
+    context.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+  }
+  context.stroke();
+}();
+  </script>
+</body>
+</html>
