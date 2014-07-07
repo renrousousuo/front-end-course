@@ -1,16 +1,41 @@
 HTML5 / CSS3 技术分享
 ---
 
-## HTML5、CSS3 的普及情况
+## Web 技术的发展
+
+* 1991 HTML
+* 1994 HTML 2
+* 1996 CSS 1 + JavaScript
+* 1997 HTML 4
+* 1998 CSS 2
+* 2000 XHTML 1
+* 2002 Tableless Web Design
+* 2005 AJAX
+* 2009 HTML 5
+
+## 什么是 HTML5
+
+* HTML5 ≈ HTML + CSS +JS
+* 离线和存储 Offline / Storage
+* 实时和通信 Realtime / Communication
+* 文件和硬件访问 File / Hardware Access
+* 语义化 Semantics & Markup
+* 图形和多媒体 Graphics / Multimedia
+* CSS3
+* 核心 Nuts & Bolts
+
+## HTML5 的普及情况
 
 ![普及情况](http://divio.qiniudn.com/FrQ0dtCwjxot1EzwItwbH7yQHr-F)
 
 * 现在普及率高于 70%。
 * 两年后高于 85%。
 
-学习了解 HTML5、CSS3 很有必要。
+学习了解 HTML5 很有必要。
 
 ## HTML5 有什么改变？
+
+![HTM5 元素](http://divio.qiniudn.com/Fneq_-mqlKrhGD4bqdUNH2TJ_Xa9)
 
 更符合开发者使用习惯
 

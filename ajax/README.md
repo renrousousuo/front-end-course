@@ -71,7 +71,15 @@ console.log(document.domain); // 尝试打印页面当前域
 ```
 
 * JSONP（JSON with Padding）
+
+```javasript
+var script = document.createElement('script');
+script.src = 'http://pingjs.qq.com/ping.js';
+document.querySelector('head').appendChild(script);
+```
+
 * JS 模板（JavaScript templates）
+  * 优势：不用拼接字符串，可维护性更强
 
 ### 步骤
 
