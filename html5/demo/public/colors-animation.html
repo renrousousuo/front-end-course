@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <title>彩色圈动画</title>
   <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
   <script src="components/gif.js/dist/gif.js"></script>
   <style>
@@ -29,17 +31,28 @@ canvas {
   <div>
     <input type="button" value="build" /><a download="colors.gif" id="download">download...</a>
   </div>
+  <pre><code class="javascript">
+var start = new Date;
+var lifetime = 10000;
+setInterval(function() {
+  render(context, (new Date - start) % lifetime / lifetime);
+  
+  render(context2, Math.cos(
+    (new Date - start) % lifetime / lifetime * Math.PI * 2
+  ));
+}, 100);
+  </code></pre>
   <script>
 void function() {
-  var canvas = document.querySelector('canvas');
-  var context = canvas.getContext('2d');
+  var canvas1 = document.querySelector('canvas:nth-of-type(1)');
+  var context1 = canvas1.getContext('2d');
 
   var canvas2 = document.querySelector('canvas:nth-of-type(2)');
   var context2 = canvas2.getContext('2d');
 
-  var cx = canvas.width / 2;
-  var cy = canvas.height / 2;
-  var radius = canvas.width * 0.2; // 半径
+  var cx = canvas1.width / 2;
+  var cy = canvas1.height / 2;
+  var radius = canvas1.width * 0.2; // 半径
   // var colors = ['#ff0000', '#00ff00', '#0000ff']; // #RRGGBB
   var colors = []; // #RRGGBB
 
@@ -80,7 +93,7 @@ void function() {
   var start = new Date;
   var lifetime = 10000;
   setInterval(function() {
-    render(context, (new Date - start) % lifetime / lifetime);
+    render(context1, (new Date - start) % lifetime / lifetime);
     
     render(context2, Math.cos(
       (new Date - start) % lifetime / lifetime * Math.PI * 2
@@ -96,10 +109,10 @@ void function() {
     });
 
     for (var i = 0; i < lifetime; i += 400) {
-      render(context, Math.cos(
+      render(context1, Math.cos(
         i / lifetime * Math.PI * 2
       ));
-      gif.addFrame(context.canvas, { delay: 100, copy: true });
+      gif.addFrame(context1.canvas, { delay: 100, copy: true });
     }
     gif.on('finished', function(blob) {
       var url = URL.createObjectURL(blob);

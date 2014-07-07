@@ -5,6 +5,8 @@
   <title>轮播图</title>
   <link rel="stylesheet" type="text/css" href="css/base.css" />
   <script src="components/ejs/ejs.js"></script>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
   <style>
 .slider {
@@ -125,6 +127,30 @@
     <input id="move-left" type="button" value="左滑" />
     <input id="move-right" type="button" value="右滑" />
   </div>
+  <pre><code class="javascript">
+function setCurrent(value) {
+  current = value;
+  for (var i = 0; i &lt; sliderItems.length; i++) {
+    var item = sliderItems[i];
+    if (i &lt; current) {
+      item.style['-webkit-transform'] =
+        'translateX(-' + itemWidth * (i + 1) + 'px)';
+    } else if (i === current) {
+      item.style['-webkit-transform'] =
+        'translateX(-' + itemWidth * i + 'px)';
+    } else {
+      item.style['-webkit-transform'] =
+        'translateX(-' + itemWidth * (i - 1) + 'px)';
+    }
+  }
+}
+  </code></pre>
+  <pre><code class="javascript">
+.slider-item {
+  ...
+  transition: -webkit-transform 0.5s ease-in-out;
+}
+  </code></pre>
   <script>
 void function() {
   var images = [

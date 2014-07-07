@@ -5,6 +5,8 @@
   <title>原生 ajax</title>
   <link rel="stylesheet" type="text/css" href="css/base.css" />
   <script src="js/base.js"></script>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
 </head>
 <body>
   <header>
@@ -23,6 +25,26 @@
   <div>
     <input type="button" value="原生 ajax" />
   </div>
+  <pre><code class="javascript">
+function handler() {
+  if (this.readyState == this.DONE) {
+    if (this.status == 200) {
+      try {
+        processData(JSON.parse(this.responseText));
+      } catch(ex) {
+        console.log(ex.message);
+      }
+    }
+  }
+}
+
+function ajax() {
+  var client = new XMLHttpRequest();
+  client.onreadystatechange = handler;
+  client.open('GET', url);
+  client.send();
+}
+  </code></pre>
   <script>
 void function() {
   var url = '/weather.json';

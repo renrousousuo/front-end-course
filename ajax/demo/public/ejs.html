@@ -8,6 +8,8 @@
   <script src="components/zeptojs/src/event.js"></script>
   <script src="components/zeptojs/src/ajax.js"></script>
   <script src="components/ejs/ejs.js"></script>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
 </head>
 <body>
@@ -55,6 +57,18 @@
     %>
     </script>
   </ul>
+  <pre><code class="html">
+&lt;script id="template" type="text/ejs">
+&lt;li>
+&lt;%
+news.forEach(function(item) {
+%>
+  &lt;a href="&lt;%= item.url %>">&lt;%= item.title %>&lt;/a>
+&lt;%
+});
+%>
+&lt;/li>
+  </code></pre>
   <script>
 void function() {
 

@@ -35,8 +35,106 @@ WebSocket protocol 是HTML5 一种新的协议。它是实现了浏览器与服�
 ### 需要使用的技术
 
 * [NodeJS](http://nodejs.org/) 脱离浏览器的 JS 运行环境
+  * 运行 JS `$node .` or `$node server.js`
 * [NPM](http://npmjs.org/) Node Packaged Modules
+  * 安装当前依赖的 node 模块 `$npm install`
+  * 安装指定 node 模块 `$npm install bower`
+  * 安装全局 node 模块 `$npm install -g bower`
 * [Bower](http://bower.io/)
+
+### 常用的类库
+
+* [ws: a node.js websocket implementation](http://einaros.github.io/ws/)
+* [socket.io](http://socket.io/) 兼容浏览器的 websocket 类库
+
+## 实战
+
+### 聊天室实现
+
+![加入聊天室流程](http://divio.qiniudn.com/Ftu1fc509LLw6_gsDDhG0yGxujR7)
+
+协议
+
+#### Client
+
+* event: talk // 对话
+
+```javascript
+{
+  message: 'hello', // 聊天内容
+  type: 'text' // 内容类型
+}
+```
+
+* event: rename // 重命名
+
+```javascript
+{
+  name: 'zswang' // 用户名
+}
+```
+
+#### Server
+
+* event: init // 初始化
+
+```
+{
+  self: {
+    id: 1
+  },
+  users: [{
+    name: 'zswang1',
+    id: 1
+  }],
+  messages: [{
+    id: 1,
+    message: 'hello world.',
+    type: 'text',
+    "from": {
+      name: 'zswang1',
+      id: 1
+    }
+  }]
+}
+```
+
+* event: join // 用户加入
+
+```javascript
+{
+  id: 1,
+  name: 'zswang' // 用户名
+}
+```
+
+* event: talk // 对话
+
+```javascript
+{
+  id: 1,
+  message: 'hello', // 聊天内容
+  type: 'text' // 内容类型
+}
+```
+
+* event: rename // 重命名
+
+```javascript
+{
+  id: 1,
+  name: 'zswang' // 用户名
+}
+```
+
+* event: exit // 用户退出
+
+```javascript
+{
+  id: 1,
+  name: 'zswang' // 用户名
+}
+```
 
 ## 常见面试题
 

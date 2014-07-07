@@ -8,6 +8,8 @@
   <script src="components/zeptojs/src/event.js"></script>
   <script src="components/zeptojs/src/ajax.js"></script>
   <script src="components/ejs/ejs.js"></script>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
 </head>
 <body>
@@ -97,7 +99,28 @@
     </span>
     </script>
   </div>
+  <pre><code class="javascript">
+function processData(data) {
+  $('#list').html(
+    ejs.render(templateList, data)
+  );
 
+  if (data.count % pageSize === 0) {
+    pageCount = parseInt(data.count / pageSize);
+  } else {
+    pageCount = parseInt(data.count / pageSize) + 1;
+  }
+
+  $('.paginator').html(
+    ejs.render(templatePaginator, {
+      dataCount: data.count,
+      pageCount: pageCount,
+      pageSize: pageSize,
+      pageIndex: pageIndex
+    })
+  );
+}
+  </code></pre>
   <script>
 void function() {
 

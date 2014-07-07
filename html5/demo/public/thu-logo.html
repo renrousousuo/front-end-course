@@ -4,11 +4,15 @@
   <meta charset="utf-8" />
   <title>logo</title>
   <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
   <script src="components/gif.js/dist/gif.js"></script>
   <style>
 canvas {
   border: 1px solid gray;
+  width: 250px;
+  height: 250px;
 }
   </style>
 </head>
@@ -28,6 +32,17 @@ canvas {
   <div>
     <input type="button" value="build" /><a download="thu-logo.gif" id="download">download...</a>
   </div>
+  <pre><code class="javascript">
+context.save();
+context.rotate(-progress * 0.7 * 2 * Math.PI); // 旋转
+context.beginPath();
+context.arc(0, 0, 135, 0, 2 * Math.PI, false); // 画圆弧
+context.arc(0, 0, 50, 0, 2 * Math.PI, true); // 画圆弧
+context.closePath();
+context.clip();
+context.drawImage(img, -cx, -cy);
+context.restore();
+  </code></pre>
   <script>
 void function() {
   var canvas = document.querySelector('canvas');

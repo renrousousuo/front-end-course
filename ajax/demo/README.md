@@ -82,3 +82,6 @@ GET `/wait/:newsIndex/:delay`
 * 进入 demo 目录 `$cd demo`
 * 安装 node 包和依赖 `$npm install`
 * 安装 bower 组件和依赖 `$bower install`
+* 进入 ace 目录 `$cd public/components/ace` 目录
+* 安装 ace 依赖 `$npm install`
+* 编译 ace `$node ./Makefile.dryice.js`

@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <title>正多边形</title>
   <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
   <style>
 footer {
@@ -27,6 +29,17 @@ canvas {
     <a href="/slider.html">轮播图</a>
   </header>
   <canvas width="500" height="500"></canvas>
+  <pre><code class="javascript">
+context.beginPath();
+polygon(context, 350, 350, 100, 8, 0, false);
+polygon(context, 350, 350, 60, 8, 0, true);
+context.fillStyle = "rgba(227, 11, 93, 0.75)";
+context.shadowColor = 'rgba(0, 0, 0, 0.75)';
+context.shadowOffsetX = 8;
+context.shadowOffsetY = 8;
+context.shadowBlur = 10;
+context.fill();
+  </code></pre>
   <script>
 void function() {
   var canvas = document.querySelector('canvas');

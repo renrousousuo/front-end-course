@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <title>渐变动画</title>
   <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
   <style>
 .item {
@@ -44,6 +46,24 @@
     <li class="item">普罗米修斯</li>
     <li class="item">海贼王</li>
   </ul>
+  <pre><code class="css">
+.item {
+  transition: background-color 0.5s, width 0.5s; /* 过渡动画 */
+  background-color: #c00;
+  width: 200px;
+  padding: 4px 14px;
+  margin: 4px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.item:hover {
+  background-color: #0c0;
+}
+.selected {
+  background-color: #c0c;
+  width: 180px;
+}
+  </code></pre>
   <script>
 void function() {
   var movieKey = 'movie_select_list';

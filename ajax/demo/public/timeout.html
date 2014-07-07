@@ -7,6 +7,8 @@
   <script src="components/zeptojs/src/zepto.js"></script>
   <script src="components/zeptojs/src/event.js"></script>
   <script src="components/zeptojs/src/ajax.js"></script>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
 </head>
 <body>
@@ -27,6 +29,17 @@
     <input id="ajax" type="button" value="$.ajax" />
     <input id="ajax-timeout" type="button" value="$.ajax.timeout" />
   </div>
+  <pre><code class="javascript">
+$.ajax({
+  url: url,
+  timeout: 3000, // 超时 3 秒
+  success: processData,
+  error: function(message) {
+    document.querySelector('#id').innerHTML = 'error';
+    document.querySelector('#title').innerHTML = '';
+  }
+});
+  </code></pre>
   <script>
 void function() {
   var url = '/wait/1/5000'; // wait/:newsIndex/:delay

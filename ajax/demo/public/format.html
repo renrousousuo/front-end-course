@@ -7,6 +7,8 @@
   <script src="components/zeptojs/src/zepto.js"></script>
   <script src="components/zeptojs/src/event.js"></script>
   <script src="components/zeptojs/src/ajax.js"></script>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
 </head>
 <body>
@@ -20,6 +22,18 @@
     <a href="carve.html">追求极致</a>
   </header>
   <ul id="news"></ul>
+  <pre><code class="javascript">
+function format(template, json) {
+  return template.replace(/#\{([^\}]*)\}/g, function(all, key) {
+    return json[key];
+  });
+}
+
+lines.push(format('\
+  &lt;a href="http://news.tsinghua.edu.cn/publish/news/#{group}/#{year}/#{id}/#{id}_.html" target="_blank">', 
+  item
+));
+  </code></pre>
   <script>
 void function() {
 

@@ -8,6 +8,8 @@
   <script src="components/zeptojs/src/event.js"></script>
   <script src="components/zeptojs/src/ajax.js"></script>
   <script src="components/ejs/ejs.js"></script>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
   <style>
 #list em {
@@ -120,6 +122,19 @@
     </span>
     </script>
   </div>
+  <pre><code class="javascript">
+$('#list').html(
+  ejs.render(templateList, {
+    key: key,
+    news: data.news
+  })
+);
+  </code></pre>
+  <pre><code class="javascript">
+var k = encodeHTML(key);
+var title = encodeHTML(item.title).
+  replace(k, '&lt;em>' + k + '&lt;/em>');
+  </code></pre>
   <script>
 void function() {
 

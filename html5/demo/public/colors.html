@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <title>三颜色</title>
   <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
   <style>
 canvas {
@@ -22,7 +24,21 @@ canvas {
     <a href="/transition.html">渐变动画</a>
     <a href="/slider.html">轮播图</a>
   </header>
-  <canvas width="500" height="500"></canvas>
+  <canvas width="230" height="230"></canvas>
+  <pre><code class="javascript">
+var colors = ['#ff0000', '#00ff00', '#0000ff']; // #RRGGBB
+for (var i = 0; i &lt; colors.length; i++) {
+  var angle = i / colors.length * Math.PI * 2;
+  var tx = cx + radius * 0.7 * Math.cos(angle);
+  var ty = cy + radius * 0.7 * Math.sin(angle);
+  context.fillStyle = colors[i];
+  context.globalCompositeOperation = 'lighter';
+  context.beginPath();
+  context.arc(tx, ty, radius, 0, 2 * Math.PI); // 画圆弧
+  context.closePath();
+  context.fill();
+}
+  </code></pre>
   <script>
 void function() {
   var canvas = document.querySelector('canvas');

@@ -8,6 +8,8 @@
   <script src="components/zeptojs/src/event.js"></script>
   <script src="components/zeptojs/src/ajax.js"></script>
   <script src="components/ejs/ejs.js"></script>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
   <script src="js/base.js"></script>
   <style>
 .paginator {
@@ -118,6 +120,19 @@
     </span>
     </script>
   </div>
+
+  <pre><code class="javascript">
+var key = localStorage['search-key'] || '';
+$('#key').val(key);
+var pageSize = localStorage['search-page-size'] || 20;
+var pageIndex = localStorage['search-page-index'] || 0;
+  </code></pre>
+
+  <pre><code class="css">
+.paginator {
+  -webkit-user-select: none;
+}
+  </code></pre>
 
   <script>
 void function() {
