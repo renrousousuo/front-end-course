@@ -1,0 +1,13 @@
+{
+  "name": "fex-monkey-socket.io",
+  "version": "0.0.0",
+  "description": "A simple chat client using socket.io",
+  "main": "index.js",
+  "author": "zswang",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+  	"socket.io": "1.0.6",
+    "express": "3.4.8"
+  }
+}

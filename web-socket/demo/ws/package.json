@@ -1,0 +1,13 @@
+{
+  "name": "fex-monkey-ws",
+  "version": "0.0.0",
+  "description": "A simple chat client using ws",
+  "main": "index.js",
+  "author": "zswang",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "express": "3.4.8",
+  	"ws": "0.4.31"
+  }
+}
