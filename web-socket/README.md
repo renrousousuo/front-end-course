@@ -136,6 +136,10 @@ WebSocket protocol 是HTML5 一种新的协议。它是实现了浏览器与服�
 }
 ```
 
+## 注意事项
+
+* 任何用户或第三方输入的数据，输出和处理的时候都需要容错
+
 ## 常见面试题
 
 * Long-Polling(长轮询), WebSockets, SSE(Server-Sent Event) 之间有什么区别？

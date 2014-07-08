@@ -138,6 +138,7 @@ var pageIndex = localStorage['search-page-index'] || 0;
 void function() {
 
   var key = localStorage['search-key'] || '';
+  // var key = sessionStorage['search-key'] || '';
   $('#key').val(key);
   var pageSize = localStorage['search-page-size'] || 20;
   var pageIndex = localStorage['search-page-index'] || 0;
@@ -148,8 +149,8 @@ void function() {
   var caches = {}; // 缓存
   function gotoPage(value) {
     pageIndex = parseInt(value);
-
     localStorage['search-key'] = key;
+    // sessionStorage['search-key'] = key;
     localStorage['search-page-size'] = pageSize;
     localStorage['search-page-index'] = pageIndex;
 
