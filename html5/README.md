@@ -197,6 +197,7 @@ function setCurrent(value) {
 * [Raphaël—JavaScript Library](http://raphaeljs.com/) 兼容浏览器的矢量图类库
 * [Infogr.am](http://infogr.am/) 在线统计图表工具
 * [ProcessOn](http://www.processon.com/) 在线流程图、设计图工具
+* [Can I use...](http://caniuse.com/) HTML5 浏览器支持的情况
 
 ## 扩展阅读
 
