@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <title>SVG 路径利用</title>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  border: 1px solid black;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <canvas width="500" height="500"></canvas>
+  <pre><code class="javascript">
+setInterval(function() {
+  var tick = (new Date() - starttime) % lifetime / lifetime;
+  var point = path.getPointAtLength(tick * len);
+  canvas.width = canvas.width;
+  context.drawImage(img, 0, 0);
+  context.arc(point.x, point.y, 5, 0, 2 * Math.PI, false);
+  context.stroke();
+}, 30);
+  </code></pre>
+  <script>
+void function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('width', 500);
+  svg.setAttribute('height', 500);
+  var path = document.createElementNS(SVG_NS, 'path');
+  svg.appendChild(path);
+  path.setAttribute('fill', 'none');
+  path.setAttribute('stroke', 'red');
+  path.setAttribute('d', 'M 186,98 T 57,190 174,310 219,269 264,65 400,249 363,189');
+
+  var img = new Image();
+  img.onload = function() {
+    var len = path.getTotalLength();
+    var lifetime = 25000;
+    var starttime = new Date();
+    setInterval(function() {
+      var tick = (new Date() - starttime) % lifetime / lifetime;
+      var point = path.getPointAtLength(tick * len);
+      canvas.width = canvas.width;
+      context.drawImage(img, 0, 0);
+      context.arc(point.x, point.y, 5, 0, 2 * Math.PI, false);
+      context.stroke();
+    }, 30);
+  };
+  img.src = 'data:image/svg+xml;charset=utf-8,' +
+    encodeURIComponent(new XMLSerializer().serializeToString(svg));
+}();
+  </script>
+</body>
+</html>
