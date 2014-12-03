@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>清屏</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  background: background-color: #48494d;
+  background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nOScgaGVpZ2h0PSc5Jz4KCTxkZWZzPgoJCTxyYWRpYWxHcmFkaWVudCBpZD0nZ2xvdycgY3g9JzUwJScgY3k9JzUwJScgcj0nNTAlJyBmeD0nNTAlJyBmeT0nNTAlJz4KCQkJPHN0b3Agb2Zmc2V0PScxMCUnIHN0eWxlPSdzdG9wLWNvbG9yOiMwMDAwMDA7Jy8+CgkJCTxzdG9wIG9mZnNldD0nODAlJyBzdHlsZT0nc3RvcC1jb2xvcjojMjEyMTIxOycvPgoJCQk8c3RvcCBvZmZzZXQ9JzEwMCUnIHN0eWxlPSdzdG9wLWNvbG9yOiM0ODQ5NGQ7IHN0b3Atb3BhY2l0eToxOycgLz4KCQk8L3JhZGlhbEdyYWRpZW50PgoJPC9kZWZzPgoJPHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0ndXJsKCNnbG93KScvPgo8L3N2Zz4=');
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <canvas width="200" height="200"></canvas>
+  <canvas width="200" height="200"></canvas>
+  <canvas width="200" height="200"></canvas>
+  <pre><code class="javascript">
+context1.clearRect(0, 0, canvas1.width, canvas1.height);
+canvas2.width = canvas2.width;
+context3.globalCompositeOperation = 'copy';
+context3.fillText('', 0, 0);
+  </code></pre>
+  <script>
+void function() {
+  [].slice.call(document.querySelectorAll('canvas')).forEach(function(canvas) {
+    var context = canvas.getContext('2d');
+    context.fillStyle = "red";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+  });
+
+  var canvas1 = document.querySelector('canvas:nth-of-type(1)');
+  var context1 = canvas1.getContext('2d');
+  context1.scale(0.5, 0.5);
+  context1.clearRect(0, 0, canvas1.width, canvas1.height);
+
+  var canvas2 = document.querySelector('canvas:nth-of-type(2)');
+  var context2 = canvas2.getContext('2d');
+  canvas2.width = canvas2.width;
+
+  var canvas3 = document.querySelector('canvas:nth-of-type(3)');
+  var context3 = canvas3.getContext('2d');
+  context3.scale(0.5, 0.5);
+  context3.globalCompositeOperation = 'copy';
+  context3.fillText('', 0, 0);
+}();
+  </script>
+</body>
+</html>

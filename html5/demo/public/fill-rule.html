@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <title>填充规则</title>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  border: 1px solid black;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <canvas width="300" height="300"></canvas>
+  <pre><code class="javascript">
+var center = [canvas.width * 0.6, canvas.height * 0.6];
+context.arc(center[0], center[1], canvas.width * 0.1, 0, Math.PI * 2, false);
+context.arc(center[0], center[1], canvas.width * 0.2, 0, Math.PI * 2, false);
+context.fill('evenodd');
+
+center = [canvas.width * 0.25, canvas.height * 0.25];
+context.beginPath();
+context.arc(center[0], center[1], canvas.width * 0.1, 0, Math.PI * 2, false);
+context.arc(center[0], center[1], canvas.width * 0.2, 0, Math.PI * 2, false);
+context.fill();
+  </code></pre>
+  <script>
+void function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+  var center = [canvas.width * 0.6, canvas.height * 0.6];
+  context.arc(center[0], center[1], canvas.width * 0.1, 0, Math.PI * 2, false);
+  context.arc(center[0], center[1], canvas.width * 0.2, 0, Math.PI * 2, false);
+  context.fill('evenodd');
+
+  center = [canvas.width * 0.25, canvas.height * 0.25];
+  context.beginPath();
+  context.arc(center[0], center[1], canvas.width * 0.1, 0, Math.PI * 2, false);
+  context.arc(center[0], center[1], canvas.width * 0.2, 0, Math.PI * 2, false);
+  context.fill();
+}();
+  </script>
+</body>
+</html>

@@ -17,8 +17,6 @@ canvas {
   <header></header>
   <canvas width="200" height="200"></canvas>
   <pre><code class="javascript">
-var canvas = document.querySelector('canvas');
-var context = canvas.getContext('2d');
 context.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
 for (var i = 0; i &lt; 100; i++) {
   context.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);

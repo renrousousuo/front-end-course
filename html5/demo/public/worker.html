@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>worker</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+  </style>
+</head>
+<body>
+  <header></header>
+  <script>
+void function() {
+  function format(template, json) {
+    /*<debug>*/
+    if (typeof template === 'function') { // 函数多行注释处理
+      template = String(template).replace(
+        /^[^\{]*\{\s*\/\*!?[ \f\t\v]*\n?|[ \f\t\v]*\*\/[;|\s]*\}$/g, // 替换掉函数前后部分
+        ''
+      );
+    }
+    /*</debug>*/
+
+    return template.replace(/#\{(.*?)\}/g, function(all, key) {
+      return json && (key in json) ? json[key] : "";
+    });
+  }
+
+  var blob = new Blob([format( /*#*/ function() {
+    /*!
+onmessage = function(e) {
+  var data = e.data;
+  var t = String(data).replace(/[^]/g, function(c) {
+    return c + '[' + (0x100 + c.charCodeAt()).toString(2).substring(1) + ']';
+  });
+  postMessage(t);
+};
+    */
+  })], {
+      type: 'application/javascript'
+    }
+  );
+  var worker = new Worker(URL.createObjectURL(blob));
+
+  worker.postMessage("hello world");
+  worker.onmessage = function(e) {
+    console.log(e.data);
+  }
+}();
+  </script>
+</body>
+</html>

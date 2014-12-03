@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <title>3D 路径</title>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+svg {
+  width: 400px;
+  height: 400px;
+}
+.box {
+  position: absolute;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <div class="box">
+    <svg>
+      <style>
+path {
+  fill: none;
+  stroke: red;
+}
+      </style>
+      <path></path>
+    </svg>
+  </div>
+  <pre><code class="javascript">
+  </code></pre>
+  <script>
+(function(exportName) {
+  var exports = exports || {};
+
+  /*
+   * see http://www.bitstorm.it/blog/en/2011/05/3d-sphere-html5-canvas/
+   */
+  var math = Math;
+  var sin = math.sin;
+  var cos = math.cos;
+  /**
+   * 旋转轴线
+   */
+  var rotate_axis = {
+    x: [1, 2],
+    y: [0, 2],
+    z: [0, 1]
+  };
+
+  /**
+   * 旋转坐标
+   * @param{Array|Object} point 原坐标
+   * @param{Number} radians 选择角度，单位弧度
+   * @param{String} axis 轴线 'x','y','z'
+   */
+  function rotate(point, radians, axis){
+    if (!point) return;
+    var indexs = point instanceof Array ? [0, 1, 2] : ['x', 'y', 'z'];
+    var t = point[indexs[rotate_axis[axis][0]]];
+    var p = point[indexs[rotate_axis[axis][1]]];
+    point[indexs[rotate_axis[axis][0]]] = t * cos(radians) - p * sin(radians);
+    point[indexs[rotate_axis[axis][1]]] = t * sin(radians) + p * cos(radians);
+    return point;
+  }
+
+  /**
+   * 旋转x轴
+   * @param{Array|Object} point 原坐标
+   * @param{Number} radians 选择角度，单位弧度
+   */
+  function rotateX(point, radians) {
+      return rotate(point, radians, 'x');
+  }
+
+  /**
+   * 旋转y轴
+   * @param{Array|Object} point 原坐标
+   * @param{Number} radians 选择角度，单位弧度
+   */
+  function rotateY(point, radians) {
+      return rotate(point, radians, 'y');
+  }
+
+  /**
+   * 旋转z轴
+   * @param{Array|Object} point 原坐标
+   * @param{Number} radians 选择角度，单位弧度
+   */
+  function rotateZ(point, radians) {
+      return rotate(point, radians, 'z');
+  }
+
+  /**
+   * 将3D坐标投影到2D
+   * @param{Array} point 原坐标
+   * @param{Number} zOffset z轴偏移
+   * @param{Number} distance 距离
+   */
+  function projection(point, zOffset, distance) {
+      var indexs = point instanceof Array ? [0, 1, 2] : ['x', 'y', 'z'];
+      var result = point instanceof Array ? [] : {};
+      result[indexs[0]] = (distance * point[indexs[0]]) / (point[indexs[2]] - zOffset);
+      result[indexs[1]] = (distance * point[indexs[1]]) / (point[indexs[2]] - zOffset);
+      return result;
+  }
+
+  exports.rotate = rotate;
+  exports.rotateX = rotateX;
+  exports.rotateY = rotateY;
+  exports.rotateZ = rotateZ;
+  exports.projection = projection;
+
+  window[exportName] = exports;
+})('j3ds');
+
+(function() {
+  /**
+   * 格式化函数
+   * @param {String} template 模板
+   * @param {Object} json 数据项
+   */
+  function format(template, json){
+    return template.replace(/#\{(.*?)\}/g, function(all, key){
+      return json && (key in json) ? json[key] : "";
+    });
+  }
+
+  var path = document.querySelector('path');
+
+  var lifetime = 15000;
+  var start = new Date();
+  var points = [];
+  var distance = 1000;
+  var zOffset = 150;
+  setInterval(function() {
+  // setTimeout(function() {
+    var tick = (new Date() - start) % lifetime / lifetime;
+    var points = [
+      [-151, 0, 0], [151, 0, 0],
+      [0, -151, 0], [0, 151, 0],
+      [0, 0, 151], [0, 0, -151]
+    ];
+    points = points.map(function(p) {
+      j3ds.rotateX(p, tick * Math.PI * 2);
+      j3ds.rotateY(p, (15 / 360) * Math.PI * 2);
+      // j3ds.rotateZ(p, tick * Math.PI * 2);
+      var t = j3ds.projection(p, zOffset, distance);
+      t[0] += 200;
+      t[1] += 200;
+      return t;
+    });
+    // path.setAttribute('d', format('M #{0} L #{1} M #{2} L #{3} M #{4} L #{5}', points));
+    path.setAttribute('d', format('M #{0} C #{1} #{2} #{3} M #{4} L #{5}', points));
+  }, 50);
+})();
+  </script>
+</body>
+</html>

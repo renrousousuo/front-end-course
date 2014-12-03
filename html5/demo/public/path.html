@@ -36,10 +36,10 @@ void function() {
   svg.setAttribute('height', 500);
   var path = document.createElementNS(SVG_NS, 'path');
   svg.appendChild(path);
-  path.setAttribute('fill', 'none');
-  path.setAttribute('stroke', 'red');
+  path.style.cssText = 'fill: none; stroke: red;';
+  // path.setAttribute('fill', 'none');
+  // path.setAttribute('stroke', 'red');
   path.setAttribute('d', 'M 186,98 T 57,190 174,310 219,269 264,65 400,249 363,189');
-
   var img = new Image();
   img.onload = function() {
     var len = path.getTotalLength();

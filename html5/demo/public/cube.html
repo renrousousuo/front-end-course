@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>立方体</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+.cube {
+  left: 200px;
+  top: 200px;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  -webkit-transform-style: preserve-3d;
+  -webkit-animation: animation 8s linear infinite;
+  -webkit-animation-play-state: paused;
+  -webkit-animation-delay: -0.4s;
+}
+
+.cube>div {
+  position: absolute;
+  text-align: center;
+  line-height: 200px;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+.cube .up {
+  transform: rotateX(90deg) translateZ(100px);
+  background: green;
+}
+.cube .down {
+  transform: rotateX(90deg) rotateY(180deg) translateZ(100px);
+  background: yellow;
+}
+.cube .left {
+  transform: rotateY(-90deg) translateZ(100px);
+  background: red;
+}
+.cube .right {
+  transform: rotateY(90deg) translateZ(100px);
+  background: blue;
+}
+.cube .front {
+  transform: translateZ(100px);
+  background: pink;
+}
+.cube .back {
+  transform: rotateX(180deg) translateZ(100px);
+  background: gray;
+}
+
+@-webkit-keyframes animation {
+    0% {
+      -webkit-transform:
+        translate3d(0px, 0px, 0px)
+          rotateZ(0deg)
+          rotateX(0deg)
+          rotateX(360deg)
+          rotateY(0deg)
+          rotateY(360deg);
+    }
+    100% {
+      -webkit-transform:
+        translate3d(0px, 0px, 0px)
+          rotateZ(0deg)
+          rotateX(0deg)
+          rotateX(0deg)
+          rotateY(0deg)
+          rotateY(0deg);
+    }
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <div class="cube">
+    <div class="up">up</div>
+    <div class="down">down</div>
+    <div class="left">left</div>
+    <div class="right">right</div>
+    <div class="back">back</div>
+    <div class="front">front</div>
+  </div>
+  <pre><code class="css">
+.cube .up {
+  transform: rotateX(90deg) translateZ(100px);
+}
+.cube .down {
+  transform: rotateX(90deg) rotateY(180deg) translateZ(100px);
+}
+.cube .left {
+  transform: rotateY(-90deg) translateZ(100px);
+}
+.cube .right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+.cube .front {
+  transform: translateZ(100px);
+}
+.cube .back {
+  transform: rotateX(180deg) translateZ(100px);
+}
+  </code></pre>
+</body>
+</html>

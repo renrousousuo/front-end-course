@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>文字旋转</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  background-color: black;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <canvas width="200" height="200"></canvas>
+  <canvas width="200" height="200"></canvas>
+  <pre><code class="javascript">
+  </code></pre>
+  <script>
+void function() {
+  var canvas1 = document.querySelector('canvas:nth-of-type(1)');
+  var context1 = canvas1.getContext('2d');
+
+  var canvas2 = document.querySelector('canvas:nth-of-type(2)');
+  var context2 = canvas2.getContext('2d');
+
+  var cx = canvas1.width / 2;
+  var cy = canvas1.height / 2;
+
+  /**
+   * 渲染画布
+   * @param {CanvasRenderingContext2D} context 上下文
+   * @param {Float} progress 进度，0 ~ 1
+   */
+  function render1(context, progress) {
+    context.canvas.width = context.canvas.width;
+
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.translate(cx, cy);
+    context.rotate(progress * Math.PI * 2);
+    context.strokeStyle = 'white';
+    context.strokeText('zswang', 0, 0);
+  }
+
+  function render2(context, progress) {
+    context.canvas.width = context.canvas.width;
+
+    context.translate(cx, cy);
+    context.rotate(progress * Math.PI * 2);
+    context.strokeStyle = 'white';
+    context.strokeText('zswang', 0, 0);
+  }
+
+  var start = new Date;
+  var lifetime = 10000;
+  setInterval(function() {
+    render1(context1, (new Date - start) % lifetime / lifetime);
+
+    render2(context2, Math.cos(
+      (new Date - start) % lifetime / lifetime * Math.PI * 2
+    ));
+  }, 100);
+}();
+  </script>
+</body>
+</html>

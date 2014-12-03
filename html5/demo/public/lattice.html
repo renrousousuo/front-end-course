@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <title>文字点阵</title>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  border: 1px solid black;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <div><input type="text" value="zswang"/></div>
+  <canvas width="500" height="300"></canvas>
+  <pre><code class="javascript">
+var data = context.getImageData(0, 0, width, height).data;
+var p = 0;
+var result = {
+  width: width,
+  height: height,
+  data: {}
+};
+for (var y = 0; y < height; y++) {
+  for (var x = 0; x < width; x++) {
+    if (data[p] === 255 && data[p + 3] >= 90) {
+      result.data[[x, y]] = true;
+    }
+    p += 4;
+  }
+}
+  </code></pre>
+  <script>
+(function(exportName) {
+  var exports = exports || {};
+
+  var canvas;
+  var context;
+
+  /**
+   * 文字转换成点阵
+   * @param {String} text
+   * @param {Object} options
+   *  @field {String} name 字体名，默认 "sans-serif"
+   *  @field {Number} size 字体大小，默认 12
+   * @return {Object}
+   *  {Integer} width 宽度
+   *  {Integer} height 高度
+   *  {Object} data 点阵 通过["x,y"]访问
+   */
+  var parse = function(text, options) {
+    if (!text) {
+      return;
+    }
+    if (!canvas) {
+      /*<debug>
+      canvas = document.querySelector('canvas:nth-of-type(2)');
+      //</debug>*/
+
+      canvas = document.createElement('canvas');
+      canvas.width = 300;
+      canvas.height = 100;
+      context = canvas.getContext('2d');
+    }
+
+    options = options || {};
+    options.size = options.size || 12;
+    options.name = options.name || 'sans-serif';
+
+    context.font = options.size + 'px ' + options.name;
+    context.globalCompositeOperation = 'copy';
+    context.textBaseline = 'top';
+
+    var width = context.measureText(text).width;
+    var height = parseInt(options.size * 1.2);
+
+    context.fillStyle = '#f00';
+    context.fillText(text, 0, 0);
+
+    var data = context.getImageData(0, 0, width, height).data;
+    var p = 0;
+    var result = {
+      data: {}
+    };
+    var maxWidth = 0;
+    var maxHeight = 0;
+    for (var y = 0; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        if (data[p] === 255 && data[p + 3] >= 90) {
+          maxWidth = Math.max(maxWidth, x + 1);
+          maxHeight = Math.max(maxHeight, x + 1);
+          result.data[[x, y]] = true;
+        }
+        p += 4;
+      }
+    }
+    result.width = maxWidth;
+    result.height = maxHeight;
+    return result;
+  };
+
+  exports.parse = parse;
+
+  window[exportName] = exports;
+})('jtexts');
+
+(function() {
+  var canvas = document.querySelector('canvas');
+  var input = document.querySelector('input[type="text"]');
+  var context = canvas.getContext('2d');
+  function render() {
+    canvas.width = canvas.width;
+
+    var lattice = jtexts.parse(input.value, { name: 'Helvetica', size: 28 });
+    if (!lattice) {
+      return;
+    }
+    var size = 5;
+    // context.translate(10, 10);
+    for (var y = 0; y < lattice.height; y++) {
+      for (var x = 0; x < lattice.width; x++) {
+        if (lattice.data[[x, y]]) {
+          context.beginPath();
+          context.arc(x * size, y * size, size / 3, 0, Math.PI * 2, false);
+          context.stroke();
+        }
+      }
+    }
+  }
+  render();
+  input.addEventListener('input', function(e) {
+    render();
+  });
+})();
+  </script>
+</body>
+</html>

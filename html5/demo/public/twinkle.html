@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <title>群星闪烁</title>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  background: black;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <canvas width="800" height="500"></canvas>
+
+  <img src="http://renrousousuo.duapp.com/img/star.png" style="dispay: none;">
+
+  <pre><code class="javascript">
+  </code></pre>
+  <script>
+(function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+
+  var size = 72;
+  var center = [72 / 2, 72 / 2];
+
+  function renderStar(context, x, y, zoom) {
+    context.save();
+
+    context.translate(x - zoom * 72 / 2, y - zoom * 72 / 2);
+    context.scale(zoom, zoom);
+    context.globalCompositeOperation = 'lighter';
+
+    // 光圈
+    var radialGradient = context.createRadialGradient(
+      center[0], center[1], 3,
+      center[0], center[1], 72 / 2
+    );
+    radialGradient.addColorStop(0.00, 'rgba(255, 255, 255, 1.00)');
+    radialGradient.addColorStop(0.04, 'rgba(255, 255, 255, 1.00)');
+    radialGradient.addColorStop(0.25, 'rgba(255, 255, 255, 0.10)');
+    radialGradient.addColorStop(0.35, 'rgba(255, 255, 255, 0.10)');
+    radialGradient.addColorStop(0.50, 'rgba(255, 255, 255, 0.05)');
+    context.beginPath();
+    context.arc(center[0], center[1], size * 0.26, 0, Math.PI * 2, false);
+    context.fillStyle = radialGradient;
+    context.fill();
+
+    // 射线
+    radialGradient = context.createRadialGradient(
+      center[0], center[1], 0,
+      center[0], center[1], 72 * 0.85
+    );
+    radialGradient.addColorStop(0.00, 'rgba(255, 255, 255, 1.00)');
+    radialGradient.addColorStop(0.50, 'rgba(255, 255, 255, 0.02)');
+    radialGradient.addColorStop(0.60, 'rgba(255, 255, 255, 0.00)');
+
+    context.strokeStyle = radialGradient;
+    context.beginPath();
+    context.moveTo(center[0], 0);
+    context.lineTo(center[0], 72);
+    context.moveTo(0, center[1]);
+    context.lineTo(72, center[1]);
+    context.lineWidth = 2;
+    context.stroke();
+
+    context.restore();
+  }
+
+  var starList = [];
+  // init
+  for (var i = 0; i < 1000; i++) {
+    starList.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      lifetime: Math.random() * 1500 + 150,
+      delay: Math.random() * 1000
+    });
+  }
+  var img = document.querySelector('img');
+  var start = new Date();
+  setInterval(function() {
+  // setTimeout(function() {
+    canvas.width = canvas.width;
+    var tick = new Date() - start;
+    starList.forEach(function(star) {
+      renderStar3(context, star.x, star.y,
+        Math.cos(Math.PI * (tick + star.delay) % star.lifetime / star.lifetime)
+      );
+    });
+  }, 10);
+
+  function renderStar2(context, x, y, zoom) {
+    context.drawImage(img, x - 36 * zoom, y - 36 * zoom, 72 * zoom, 72 * zoom);
+  }
+  var canvas2;
+
+  function renderStar3(context, x, y, zoom) {
+    if (!canvas2) {
+      canvas2 = document.createElement('canvas');
+      canvas2.width = 72;
+      canvas2.height = 72;
+      renderStar(canvas2.getContext('2d'), 72 / 2, 72 / 2, 1);
+    }
+    context.drawImage(canvas2, x - 36 * zoom, y - 36 * zoom, 72 * zoom, 72 * zoom);
+  }
+})();
+  </script>
+  <script src="http://renrousousuo.duapp.com/js/jfpss.bar.min.js"></script>
+</body>
+</html>

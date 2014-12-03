@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <title>路径变化</title>
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  border: 1px solid black;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <svg width="500" height="500">
+    <path stroke="#808600" stroke-width="1" stroke-linecap="round" fill="none">
+      <animate dur="5s" repeatCount="indefinite" attributeName="d" values="M 0,0 C 50,70 80,120 79,300;M 0,0 C 150,70 80,120 79,300;M 0,20 C 50,70 80,120 10,300"></animate>
+    </path>
+  </svg>
+  <pre><code class="xml">
+&lt;svg width="500" height="500">
+  &lt;path stroke="#808600" stroke-width="1" stroke-linecap="round" fill="none">
+    &lt;animate dur="5s" repeatCount="indefinite" attributeName="d" values="M 0,0 C 50,70 80,120 79,300;M 0,0 C 150,70 80,120 79,300;M 0,20 C 50,70 80,120 10,300">&lt;/animate>
+  &lt;/path>
+&lt;/svg>
+  </code></pre>
+  <script>
+  </script>
+</body>
+</html>

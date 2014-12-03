@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>虚线</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+footer {
+  bottom: 0px;
+  position: absolute;
+}
+canvas {
+  border: 1px solid gray;
+  background: url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23ccc%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23ccc%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23fff%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%220%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E);
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <canvas width="500" height="500"></canvas>
+  <pre><code class="javascript">
+  </code></pre>
+  <script>
+void function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+  /**
+   * 正多边形
+   */
+  function polygon(x, y, radius, sides, startAngle, anticlockwise) {
+    var result = [];
+    var a = (Math.PI * 2) / sides;
+    a = anticlockwise ? -a : a;
+    for (var i = 0; i < sides; i++) {
+      result.push([
+        x + radius * Math.cos(startAngle + a * i),
+        y + radius * Math.sin(startAngle + a * i)
+      ]);
+    }
+    return result;
+  }
+
+  var center = [225, 225];
+  var star = polygon(center[0], center[1], 100, 5, Math.PI * 0.70);
+  var lifetime = 200;
+  var start = new Date();
+  setInterval(function() {
+    canvas.width = canvas.width;
+
+    var tick = (new Date() - start) % lifetime / lifetime;
+
+    context.beginPath();
+    context.moveTo(star[0][0], star[0][1]);
+    context.lineTo(star[2][0], star[2][1]);
+    context.lineTo(star[4][0], star[4][1]);
+    context.lineTo(star[1][0], star[1][1]);
+    context.lineTo(star[3][0], star[3][1]);
+    context.closePath();
+    context.setLineDash([4, 2]);
+    context.lineDashOffset = tick * 8;
+    context.stroke();
+  }, 30 / 60);
+}();
+  </script>
+</body>
+</html>

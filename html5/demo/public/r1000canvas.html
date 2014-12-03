@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>一千矩形</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  border: 1px solid gray;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <style>
+rect, path {
+  fill: none; stroke: red;
+}
+  </style>
+  <canvas width="500" height="500"></canvas>
+  <pre><code class="javascript">
+  </code></pre>
+  <script>
+void function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+
+  var count = 10000;
+  var rects = [];
+  var size = 500;
+  for (var i = 0; i < count; i++) {
+    rects.push({
+      from: [size * Math.random(), size * Math.random()],
+      to: [size * Math.random(), size * Math.random()],
+      lifetime: 5000 * Math.random() + 1000
+    });
+  }
+
+  var start = new Date();
+
+  function bezier(a, b, rate) {
+    return a + (b - a) * rate;
+  }
+
+  function update() {
+    var tick = new Date() - start;
+    rects.forEach(function(rect) {
+      rect.x = bezier(rect.from[0], rect.to[0], tick % rect.lifetime / rect.lifetime);
+      rect.y = bezier(rect.from[1], rect.to[1], tick % rect.lifetime / rect.lifetime);
+    });
+  }
+
+  function render() {
+    canvas.width = canvas.width;
+    context.strokeStyle = 'red';
+    rects.forEach(function(rect) {
+      context.strokeRect(rect.x, rect.y, 10, 10);
+    });
+  }
+
+  setInterval(function() {
+  // setTimeout(function() {
+    update();
+    render();
+  }, 10);
+}();
+  </script>
+  <script src="http://renrousousuo.duapp.com/js/jfpss.bar.min.js"></script>
+</body>
+</html>

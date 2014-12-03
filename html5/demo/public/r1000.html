@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>一千矩形</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+svg {
+  border: 1px solid gray;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <style>
+rect, path {
+  fill: none; stroke: red;
+}
+  </style>
+  <svg width="500" height="500"></svg>
+  <pre><code class="javascript">
+  </code></pre>
+  <script>
+void function() {
+  var svg = document.querySelector('svg');
+  var count = 2000;
+  var rects = [];
+  var size = 500;
+  for (var i = 0; i < count; i++) {
+    rects.push({
+      from: [size * Math.random(), size * Math.random()],
+      to: [size * Math.random(), size * Math.random()],
+      lifetime: 5000 * Math.random() + 1000
+    });
+  }
+
+  var start = new Date();
+
+  function bezier(a, b, rate) {
+    return a + (b - a) * rate;
+  }
+
+  function update() {
+    var tick = new Date() - start;
+    rects.forEach(function(rect) {
+      rect.x = bezier(rect.from[0], rect.to[0], tick % rect.lifetime / rect.lifetime);
+      rect.y = bezier(rect.from[1], rect.to[1], tick % rect.lifetime / rect.lifetime);
+    });
+  }
+
+  /**
+   * 格式化函数
+   * @param {String} template 模板
+   * @param {Object} json 数据项
+   */
+  function format(template, json){
+    return template.replace(/#\{(.*?)\}/g, function(all, key){
+      return json && (key in json) ? json[key] : "";
+    });
+  }
+
+  function renderHtml() {
+    var html = [];
+    rects.forEach(function(rect) {
+      html.push(format('<rect x="#{x}" y="#{y}" width="#{size}" height="#{size}"></rect>', {
+        x: rect.x,
+        y: rect.y,
+        size: 10
+      }));
+    });
+    svg.innerHTML = html.join('');
+  }
+
+  var nodes;
+  function renderAttr() {
+    if (!nodes) {
+      var html = [];
+      rects.forEach(function(rect) {
+        html.push(format('<rect width="#{size}" height="#{size}"></rect>', {
+          size: 10
+        }));
+      });
+      svg.innerHTML = html.join('');
+
+      nodes = [].slice.call(svg.querySelectorAll('rect'));
+    }
+    rects.forEach(function(rect, index) {
+      nodes[index].setAttribute('x', rect.x);
+      nodes[index].setAttribute('y', rect.y);
+    });
+  }
+
+  var path;
+  function renderPath() {
+    if (!path) {
+      svg.innerHTML = '<path></path>';
+      path = svg.querySelector('path');
+    }
+
+    var d = [];
+    rects.forEach(function(rect) {
+      d.push(format('M #{x},#{y} l #{size},0 0,#{size} -#{size},0 z', {
+        x: rect.x,
+        y: rect.y,
+        size: 10
+      }));
+    });
+    path.setAttribute('d', d.join(''));
+  }
+
+  // function renderAnimate() {
+  //   var html = [];
+  //   rects.forEach(function(rect) {
+  //     html.push(format(
+  //       '<rect width="#{size}" height="#{size}">' +
+  //         '<animate attributeName="x" attributeType="XML" begin="0s" dur="#{dur}ms" fill="freeze" from="#{fromX}" to="#{toX}" repeatCount="indefinite" />' +
+  //         '<animate attributeName="y" attributeType="XML" begin="0s" dur="#{dur}ms" fill="freeze" from="#{fromY}" to="#{toY}" repeatCount="indefinite" />' +
+  //       '</rect>', {
+  //       fromX: rect.from[0],
+  //       fromY: rect.from[1],
+  //       toX: rect.to[0],
+  //       toY: rect.to[1],
+  //       dur: rect.lifetime,
+  //       size: 10
+  //     }));
+  //   });
+  //   svg.innerHTML = html.join('');
+  // }
+  // renderAnimate();
+  // return;
+  setInterval(function() {
+  // setTimeout(function() {
+    update();
+    // renderPath();
+    renderHtml();
+    // renderAttr();
+  }, 10);
+}();
+  </script>
+  <script src="http://renrousousuo.duapp.com/js/jfpss.bar.min.js"></script>
+</body>
+</html>
