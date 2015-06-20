@@ -3,9 +3,10 @@ HTML Canvas 2D Context，Level 2 尝鲜
 
 ### 画布高宽不用通过 canvas 获得了。
 
-参考：
+标准文档：
 
 ```idl
+// canvas dimensions
 attribute unsigned long width;
 attribute unsigned long height;
 ```
@@ -34,4 +35,22 @@ context.lineTo(0, context.height);
 context.stroke();
 ```
 
-### 画布高宽不用通过 canvas 获得了。
+### Content 不再需要依赖特定的 Canvas 存在
+
+看来后续图像处理可以放到线程中
+
+标准文档：
+
+```idl
+// for contexts that aren't directly fixed to a specific canvas
+void commit(); // push the image to the output bitmap
+```
+
+### 获取当前坐标系
+
+```idl
+// transformations (default transform is the identity matrix)
+attribute SVGMatrix currentTransform;
+```
+
+### 

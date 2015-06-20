@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>pythagorean triangle tree</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <script src="components/gif.js/dist/gif.js"></script>
+  <style>
+canvas {
+  background-color: black;
+}
+  </style>
+</head>
+<body>
+  <header></header>
+  <canvas width="200" height="200"></canvas>
+  <canvas width="200" height="200"></canvas>
+  <img width="200" height="200" />
+  <div>
+    <input type="button" value="build" /><a download="tree.gif" id="download">download...</a>
+  </div>
+  <pre><code class="javascript">
+var start = new Date;
+var lifetime = 10000;
+setInterval(function() {
+  render(context, (new Date - start) % lifetime / lifetime);
+
+  render(context2, Math.cos(
+    (new Date - start) % lifetime / lifetime * Math.PI * 2
+  ));
+}, 100);
+  </code></pre>
+  <script>
+void function() {
+  var canvas1 = document.querySelector('canvas:nth-of-type(1)');
+  var context1 = canvas1.getContext('2d');
+
+  var canvas2 = document.querySelector('canvas:nth-of-type(2)');
+  var context2 = canvas2.getContext('2d');
+
+  var height = canvas1.height;
+  var cx = canvas1.width / 2;
+  var cy = canvas1.height / 2;
+  var radius = canvas1.width * 0.07; // 半径
+  var maxLevel = 7;
+
+  /**
+   * 渲染画布
+   * @param {CanvasRenderingContext2D} context 上下文
+   * @param {Float} progress 进度，0 ~ 1
+   */
+  function render(context, progress) {
+    context.fillStyle = 'black';
+    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    context.save(); // 保存上一次的绘制风格
+    var count = 0;
+    function square(a, b, level) {
+        if (level <= 0) {
+            return;
+        }
+
+        var side = Math.sqrt(
+            Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2)
+        );
+
+        var c = [
+          b[0] + b[1] - a[1],
+          b[1] + a[0] - b[0]
+        ];
+        var d = [
+          a[0] + b[1] - a[1],
+          a[1] + a[0] - b[0]
+        ];
+
+        var angle = Math.asin(progress);
+        var direction = Math.atan2(a[1] - b[1], a[0] - b[0]);
+
+        var e = [
+            c[0] + (Math.sin(angle - direction) * side * progress),
+            c[1] + (Math.cos(angle - direction) * side * progress)
+        ];
+
+        /**
+         * D-----C
+         * |     |
+         * |     |
+         * A-----B
+         */
+
+        context.beginPath();
+        context.moveTo(a[0], a[1]);
+        context.lineTo(b[0], b[1]);
+        context.lineTo(c[0], c[1]);
+        context.lineTo(d[0], d[1]);
+        context.closePath();
+        var gray = 50 + parseInt(100 * (level / maxLevel));
+        context.fillStyle = 'rgb(' + [gray, gray, gray].join(', ') + ')';
+        context.fill();
+        square(d, e, level - 1);
+        square(e, c, level - 1);
+
+        // if (level === maxLevel) { // debug
+        //   context.beginPath();
+        //   context.arc(e[0], e[1], 10, 0, Math.PI * 2, false);
+        //   context.strokeStyle = 'red';
+        //   context.stroke();
+        // }
+    }
+
+    square(
+        [cx - radius, height],
+        [cx + radius, height],
+        maxLevel, (new Date - start) % lifetime / lifetime
+    );
+
+    context.restore();
+  }
+
+  var start = new Date;
+  var lifetime = 10000;
+  // setTimeout(function() { // debug
+  setInterval(function() {
+    render(context1, (new Date - start) % lifetime / lifetime);
+
+    render(context2, Math.abs(Math.cos(
+      (new Date - start) % lifetime / lifetime * Math.PI * 2
+    )));
+  }, 100);
+
+  document.querySelector('input[type=button]').addEventListener('click', function() {
+    var gif = new GIF({
+      repeat: 0,
+      workers: 3,
+      quality: 10, // 品质
+      workerScript: 'components/gif.js/dist/gif.worker.js'
+    });
+
+    for (var i = 0; i < lifetime; i += 200) {
+      render(context1, Math.abs(Math.cos(
+        i / lifetime * Math.PI * 2
+      )));
+      gif.addFrame(context1.canvas, { delay: 100, copy: true });
+    }
+    gif.on('finished', function(blob) {
+      var url = URL.createObjectURL(blob);
+      document.querySelector('img').src = url;
+      document.querySelector('#download').href = url;
+      self.disabled = false;
+    });
+    gif.render();
+  });
+}();
+  </script>
+</body>
+</html>
