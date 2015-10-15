@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>三颜色</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <script src="components/ace/build/src/ace.js"></script>
+  <script src="components/ace/build/src/ext-static_highlight.js"></script>
+  <script src="js/base.js"></script>
+  <style>
+canvas {
+  background-color: black;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">简单绘制</a>
+    <a href="/colors.html">三颜色</a>
+    <a href="/colors-animation.html">彩色圈动画</a>
+    <a href="/polygon.html">正多边形</a>
+    <a href="/thu-logo.html">旋转 logo</a>
+    <a href="/cat.html">奔跑的猫</a>
+    <a href="/transition.html">渐变动画</a>
+    <a href="/slider.html">轮播图</a>
+  </header>
+  <canvas width="400" height="400"></canvas>
+  <div style="font-size: 24px">hello</div>
+  <script>
+void function() {
+  var canvas = document.querySelector('canvas');
+  var context = canvas.getContext('2d');
+
+  canvas.style.width = '200px';
+  canvas.style.height = '200px';
+  context.scale(2, 2);
+
+  context.textAlign = 'center'; // 横向居中
+  context.textBaseline = 'middle';
+  context.font = '24px Arial';
+  context.fillStyle = 'red';
+  context.fillText("hello", 100, 100);
+
+}();
+  </script>
+</body>
+</html>
