@@ -1,0 +1,16 @@
+{
+  "name": "react-demo-01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-standalone": "^6.26.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  }
+}
