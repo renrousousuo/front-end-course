@@ -1,1 +1,1 @@
-ReactDOM.render(<div>hello world!</div>, document.querySelector('#app'))
+ReactDOM.render(<div>hello world!</div>, document.querySelector("#app"));

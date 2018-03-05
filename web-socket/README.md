@@ -2,6 +2,7 @@
 
 * [网易游戏框架 Pomelo](http://nodejs.netease.com/)
 * [百度应用框架 Clouda](http://cloudajs.org/)
+* [实时调试工具 livereload][http://livereload.com/]
 
 ## 什么是 WebSocket？What
 
