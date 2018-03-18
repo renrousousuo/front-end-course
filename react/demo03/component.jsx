@@ -12,6 +12,25 @@ export class Button extends React.Component {
   }
 }
 
+export class Input extends React.Component {
+  get value() {
+    return this.state.value;
+  }
+  render() {
+    return (
+      <input
+        type="text"
+        value={this.props.defaultValue}
+        onInput={event => {
+          this.setState({
+            value: event.target.value
+          });
+        }}
+      />
+    );
+  }
+}
+
 export class PopupMenu extends React.Component {
   constructor(props) {
     super();

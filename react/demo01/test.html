@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-demo-01-test</title>
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+    function createElement(tag, props, ...children) {
+      if (typeof tag === 'function') {
+        props.children = children
+        return tag(props)
+      }
+      var element = document.createElement(tag);
+      if (props) {
+        Object.keys(props).forEach(key => {
+          let prop = props[key]
+          if (['string', 'number'].indexOf(typeof prop) >= 0) {
+            element.setAttribute(key, prop)
+          }
+        })
+      }
+      if (!children) {
+        children = []
+      }
+      if (!(children instanceof Array)) {
+        children = [children]
+      }
+      children.forEach(item => {
+        if (typeof item === 'string') {
+          item = document.createTextNode(item);
+        }
+        element.appendChild(item);
+      })
+      return element;
+    }
+
+    function My(props) {
+      return createElement('em', { class: props.className }, ...props.children);
+    }
+
+    /**
+     <span>
+      hello <em class="red">world!</em>
+     </span>
+     */
+     app.appendChild(
+      createElement(
+        'span',
+        null,
+        'hello ',
+        createElement(
+          'em',
+          { class: 'red' },
+          'world!'
+        ),
+        createElement(
+          My,
+          { className: 'red' },
+          'button'
+        )
+      )
+    )
+  </script>
+</body>
+
+</html>
