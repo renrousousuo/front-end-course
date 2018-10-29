@@ -13,3 +13,5 @@ components
 tools/news.json
 debug.*
 dist
+package-lock.json
+.vscode

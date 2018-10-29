@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-demo-05</title>
+  <link ref="stylesheet" type="text/css" href="./node_modules/antd/dist/antd.css">
+</head>
+
+<body>
+  <div id="app"></div>
+  <button>测试</button>
+  <script type="text/babel">
+  const { Input, Form } = antd;
+  const FormItem = Form.Item;
+
+  const CustomizedForm = Form.create({
+    onFieldsChange(props, changedFields) {
+      props.onChange(changedFields);
+    },
+    mapPropsToFields(props) {
+      return {
+        username: Form.createFormField({
+          ...props.username,
+          value: props.username.value,
+        }),
+      };
+    },
+    onValuesChange(_, values) {
+      console.log(values);
+    },
+  })((props) => {
+    const { getFieldDecorator } = props.form;
+    return (
+      <Form layout="inline">
+        <FormItem label="Username">
+          {getFieldDecorator('username', {
+            rules: [{ required: true, message: 'Username is required!' }],
+          })(<Input />)}
+        </FormItem>
+      </Form>
+    );
+  });
+
+  class Demo extends React.Component {
+    state = {
+      fields: {
+        username: {
+          value: 'zswang',
+        },
+      },
+    };
+
+    handleFormChange = (changedFields) => {
+      this.setState(({ fields }) => ({
+        fields: { ...fields, ...changedFields },
+      }));
+    }
+
+    render() {
+      const fields = this.state.fields;
+      return (
+        <div>
+          <CustomizedForm {...fields} onChange={this.handleFormChange} />
+          <pre className="language-bash">
+            {JSON.stringify(fields, null, 2)}
+          </pre>
+        </div>
+      );
+    }
+  }
+
+  ReactDOM.render(
+  <div>
+    <Demo />
+  </div>, document.querySelector('#app'))
+  </script>
+  <script src="./node_modules/react/umd/react.development.js"></script>
+  <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+  <script src="./node_modules/moment/moment.js"></script>
+  <script src="./node_modules/antd/dist/antd.js"></script>
+  <script src="./node_modules/babel-standalone/babel.min.js"></script>
+  <script>
+    document.querySelector('button').addEventListener('click', function () {
+      var input = document.querySelector('input');
+      input.value = 'hello world!';
+
+      var mockKeyboardEvent = new KeyboardEvent('keydown', {
+        bubbles: true,
+        cancelBubble: false,
+        cancelable: false,
+        composed: true,
+        defaultPrevented: false,
+        key: "z",
+        keyCode: 90,
+        which: 90
+      });
+      input.dispatchEvent(mockKeyboardEvent);
+
+      var mockInputEvent = new InputEvent('input', {
+        bubbles: true,
+        cancelBubble: false,
+        cancelable: false,
+        composed: true,
+        defaultPrevented: false,
+        inputType: "insertText",
+        data: "a"
+      });
+      mockInputEvent.target = input
+      input.dispatchEvent(mockInputEvent);
+
+      var mockKeyboardEvent = new KeyboardEvent('keyup', {
+        bubbles: true,
+        cancelBubble: false,
+        cancelable: false,
+        composed: true,
+        defaultPrevented: false,
+        key: "z",
+        keyCode: 90,
+        which: 90
+      });
+      input.dispatchEvent(mockKeyboardEvent);
+
+    });
+  </script>
+</body>
+
+</html>

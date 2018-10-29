@@ -3,6 +3,10 @@ module.exports = {
   mode: "production",
   // mode: "development",
   entry: "./app.jsx",
+  devtool: false,
+  performance: {
+    hints: false
+  },
   output: {
     path: __dirname + "/dist/",
     filename: "bundle.js",
